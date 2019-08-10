@@ -1,0 +1,46 @@
+Objetos
+
+Usuário
+int cd_usuario
+string nome
+int identidade
+string endereco
+string celular
+string fixo (telefone fixo)
+int perfil
+int ativo
+
+Agendamento
+int cd_agendamento
+string usuario
+string tipo_veiculo
+string placa
+string servico
+date data
+time horario
+double valor
+
+Serviço
+int cd_servico
+string servico
+int ativo
+
+Veiculo
+int cd_tpveiculo
+string tipo
+
+Tarifa
+int cd_tarifa
+string tipo_veiculo
+string servico
+double preco
+
+Faturamento
+int cd_faturamento
+date data
+time horario
+string servico
+string tipo_veiculo
+double valor
+
+

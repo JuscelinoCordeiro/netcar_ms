@@ -1,0 +1,299 @@
+/*
+    Created on : 02/12/2014, 20:02:17
+    Author     : juscelino
+*/
+/*body {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 1024px;
+    text-align: center;
+    margin: 20px auto;
+}*/
+
+#main {
+    background: #eee;
+    /*width: 1024px;*/
+}
+
+#header {
+    /*width: 1024px;*/
+    margin-top: 0;
+    margin-bottom: 4px;
+    /*background: #46a546;*/
+    background: #1874CD;
+    height: 130px;
+    border: 1px solid #666;
+    border-top: 1px solid transparent;
+    z-index: 2000;
+    /*    border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
+        -webkit-border-radius: 0 0 5px 5px;*/
+}
+
+#menu_superior{
+    height: 60px;
+    background-color: #999999;
+    border: 1px solid #222;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#conteudo{
+    background-color: #fff;
+    width: 1024px;
+    margin-top: 15px;
+    /*padding: 10px 0;*/
+    border: 1px solid #666;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#conteudo h3{
+    text-align: center;
+    padding: 20px;
+}
+
+#conteudo table td{
+    text-transform: uppercase;
+}
+
+#div-center{
+    position: relative;
+    left: 50px;
+    /*margin-right: auto;*/
+}
+
+#corpo{
+    background-color: #fff;
+}
+
+.b_branco{
+    background-color: #fff;
+}
+
+#rodape {
+    /*    height: 60px;
+        clear: left;
+        background: #aaa;*/
+    min-height: 20px;
+    padding: 19px 0;
+    /*position: fixed;*/
+    margin-top: 20px;
+    margin-bottom: 20px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #ccc;
+    color: #000;
+    text-align: center;
+    border: 1px solid #444;
+    /*    -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;*/
+}
+
+#li-logout{
+    margin-top: 4px;
+    /*margin-right: -9px;*/
+    padding: 5px 8px;
+    background: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #fff;
+}
+
+#li-logout:hover{
+    background: #aaa;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+
+.hr2{
+    border: 1px solid #333;
+}
+
+.hr3{
+    border-bottom: 2px solid #333;
+}
+
+.tabela th{
+    padding: 9px 0;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000;
+    /*font-family: Georgia, 'Times New Roman', Times, serif;*/
+    text-transform: uppercase;
+
+    /* inicio da formata��o do gradiente para a tabela */
+    background: -moz-linear-gradient(top, #f5f5f5, #999);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#999));
+    background: linear-gradient(top, #f5f5f5, #999);
+    filter: progid:DXImagetransform.Microsoft.Gradient(GradientType=0, StartColorStr='#f5f5f5', EndColorStr='#999');
+}
+
+.tabela td{
+    color: #111;
+}
+
+table.list th{
+    padding: 9px 0;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    text-align: center;
+    /*text-indent: 8px; foca como negrito - negrito controlado*/
+    font-weight: bold;
+    font-size: 15px;
+    color: #111;
+    /*font-family: Georgia, 'Times New Roman', Times, serif;*/
+    text-transform: uppercase;
+
+    /* inicio da formata��o do gradiente para a tabela */
+    background: -moz-linear-gradient(top, #f5f5f5, #999);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#999));
+    background: linear-gradient(top, #f5f5f5, #999);
+    filter: progid:DXImagetransform.Microsoft.Gradient(GradientType=0, StartColorStr='#f5f5f5', EndColorStr='#999');
+}
+
+table.list tbody{
+    text-align: center;
+    background: #ddd;
+}
+
+table.list tr:hover{
+    background: #f5f5f5;
+    /*border: 1px solid #ccc;*/
+}
+
+table.list tr a{
+    text-decoration: none;
+}
+
+table.list td{
+    padding: 4px 6px;
+    border: 1px solid #aaa;
+    font: 14px 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+table.list td a{
+    text-decoration: none;
+    font: 14px 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+table.list td a:hover{
+    color: #09f;
+}
+
+table td img{
+    margin: 0 7px;
+}
+
+.titulo{
+    /*float: left;*/
+    font: 28px 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+    margin-top: -2px;
+    margin-bottom: 12px;
+    /*width: 850px;*/
+}
+
+.view-dados{
+    background: #eee;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 984px;
+    color: #000;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 3px solid #444;
+}
+
+.div-login{
+    position: relative;
+    /*width: 300px;*/
+    height: 200px;
+    border: 1px solid #333;
+}
+
+#div-home{
+    background-color: #fff;
+}
+/*#div-home img{
+    margin-left: auto;
+    margin-right: auto;
+}*/
+
+#carwash{
+    /*    position: relative;
+        margin-left: auto;
+        margin-right: auto;*/
+    /*width: 500px;*/
+    /*padding: 25px;*/
+}
+
+#green{
+    color: #009900;
+}
+
+#red{
+    color:#ff0000;
+}
+
+#nav1{
+    /*width: 800px;*/
+    /*float: left;*/
+    font: 16px 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    /*margin-top: 10px;*/
+    /*margin-left: 110px;*/
+    /*text-shadow: 1px 1px 1px #aaa;*/
+}
+
+.nome_sistema{
+    /*width: 800px;*/
+    /*float: left;*/
+    font: 50px 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    margin-top: 10px;
+    /*margin-left: 110px;*/
+    text-shadow: 4px 3px 2px #fff;
+}
+
+.apresentacao{
+    /*float: left;*/
+    font: 30px 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #fff;
+    /*float: left;*/
+    margin-top: 10px;
+    /*    margin-left: auto;
+        margin-right: auto;*/
+}
+
+.indexMeio{
+    height: 300px;
+}
+
+.indexMeio img{
+    margin-top: 30px;
+    margin-left: 280px;
+}
+
+#div-login{
+    margin-top: 20px;
+}
