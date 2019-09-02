@@ -79,7 +79,7 @@
         'hostname' => 'localhost',
         'username' => 'dimitri',
         'password' => '@!@#rf',
-        'database' => 'netcar_sla',
+        'database' => 'netcar',
         'dbdriver' => 'mysqli',
         'dbprefix' => '',
         'pconnect' => FALSE,
@@ -95,4 +95,3 @@
         'failover' => array(),
         'save_queries' => TRUE
     );
-    
