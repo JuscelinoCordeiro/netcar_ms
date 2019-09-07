@@ -17,7 +17,7 @@
                 foreach ($tipo_veiculos as $tpVeiculo) {
                     ?>
                     <label class="checkbox-inline">
-                        <input class=" text text-uppercase"type="checkbox" name="check" id="tpv<?= $tpVeiculo->cd_tpveiculo ?>" value="<?= $tpVeiculo->cd_tpveiculo ?>"> <?= $tpVeiculo->tipo ?>
+                        <input class=" text text-uppercase"type="checkbox" name="check" id="tpv<?= $tpVeiculo->id ?>" value="<?= $tpVeiculo->id ?>"> <?= $tpVeiculo->tipo ?>
                     </label>
                     <?php
                 }

@@ -79,7 +79,7 @@
         'hostname' => 'localhost',
         'username' => 'dimitri',
         'password' => '@!@#rf',
-        'database' => 'netcar',
+        'database' => 'netcar_sla',
         'dbdriver' => 'mysqli',
         'dbprefix' => '',
         'pconnect' => FALSE,

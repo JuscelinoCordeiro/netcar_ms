@@ -27,12 +27,12 @@
                     <option value="" selected="">Selecione o tipo de veículo</option>
                     <?php
                         foreach ($tipo_veiculos as $tpveiculos) {
-                            if ($agendamento->cd_tpveiculo == $tpveiculos->cd_tpveiculo) {
+                            if ($agendamento->cd_tpveiculo == $tpveiculos->id) {
                                 $selecionado = "selected";
                             } else {
                                 $selecionado = "";
                             }
-                            echo '<option ' . $selecionado . ' value="' . $tpveiculos->cd_tpveiculo . '">' . $tpveiculos->tipo . '</option>';
+                            echo '<option ' . $selecionado . ' value="' . $tpveiculos->id . '">' . $tpveiculos->tipo . '</option>';
                         }
                     ?>
                 </select>

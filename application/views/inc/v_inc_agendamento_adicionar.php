@@ -28,7 +28,7 @@
                     <option value="" selected="">Selecione o tipo de veículo</option>
                     <?php
                         foreach ($tipo_veiculos as $tpveiculos) {
-                            echo '<option value="' . $tpveiculos->cd_tpveiculo . '">' . $tpveiculos->tipo . '</option>';
+                            echo '<option value="' . $tpveiculos->id . '">' . $tpveiculos->tipo . '</option>';
                         }
                     ?>
                 </select>
@@ -76,9 +76,9 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         //cadastrar o agendamento
-        $("#salvarModal").click(function (e) {
+        $("#salvarModal").click(function(e) {
             cd_usuario = $("select[name=usuario]").val();
             placa = $("input[name=placa]").val();
             cd_tpveiculo = $("select[name=tipo_veiculo]").val();
@@ -101,14 +101,14 @@
                     horario: horario,
                     acao: acao
                 },
-                beforeSend: function (xhr) {
+                beforeSend: function(xhr) {
                     xhr.overrideMimeType("text/plain; charset=UTF-8");
                 },
-                complete: function () {
+                complete: function() {
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data === '1') {
-                        $('#sucesso').on('hidden.bs.modal', function (e) {
+                        $('#sucesso').on('hidden.bs.modal', function(e) {
                             window.location.reload();
                         });
                         $('#alteracao').modal('hide');
@@ -116,7 +116,7 @@
                         $('#sucessoTexto').html(msg);
                         $('#sucesso').modal('show');
                     } else {
-                        $('#erro').on('hidden.bs.modal', function (e) {
+                        $('#erro').on('hidden.bs.modal', function(e) {
                             window.location.reload();
                         });
                         $('#excluir').modal('hide');
@@ -125,7 +125,7 @@
                         $('#erro').modal('show');
                     }
                 },
-                error: function () {
+                error: function() {
                     $("#erroTexto").html("Erro no sistema, tente novamente.");
                     $("#erro").modal('show');
                 }
@@ -135,14 +135,14 @@
 
 
         //combobox servico
-        $('#tipo_veiculo').on('change', function () {
+        $('#tipo_veiculo').on('change', function() {
             var cd_tpveiculo = $(this).val();
             if (cd_tpveiculo) {
                 $.ajax({
                     type: 'POST',
                     url: '/netcar/c_servico/comboServicos',
                     data: {cd_tpveiculo: cd_tpveiculo},
-                    success: function (html) {
+                    success: function(html) {
                         $('#servico').html(html);
                         $('#preco').val('Selecione o tipo de veículo e o serviço.');
                     }
@@ -154,7 +154,7 @@
         });
 
         //combobox preço
-        $('#servico').on('change', function () {
+        $('#servico').on('change', function() {
             var cd_servico = $(this).val();
             var cd_tpveiculo = $('#tipo_veiculo').val();
             if (cd_servico) {
@@ -165,7 +165,7 @@
                         cd_servico: cd_servico,
                         cd_tpveiculo: cd_tpveiculo
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#preco').val(html);
                     }
                 });
@@ -175,7 +175,7 @@
         });
     });
 
-    $(function () {
+    $(function() {
         $("#data_agenda").datepicker(
                 {
                     dateFormat: 'dd/mm/yy',

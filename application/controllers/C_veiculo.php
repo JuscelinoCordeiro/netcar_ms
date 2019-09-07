@@ -22,7 +22,7 @@
         }
 
         public function getVeiculoById() {
-            $dados['veiculo'] = $this->m_veiculo->getVeiculoById($cd_tpveiculo);
+            $dados['veiculo'] = $this->m_veiculo->getVeiculoById($id);
 
             if (isset($dados['veiculo']) && !empty($dados['veiculo'])) {
                 $this->load->view('inc/v_inc_veiculo_editar', $dados);
@@ -34,7 +34,7 @@
 
             if (($acao !== null) && ($acao === "editar" )) {
                 $veiculo = new Veiculo();
-                $veiculo->setCodigo($this->security->xss_clean($this->input->post('cd_tpveiculo')));
+                $veiculo->setCodigo($this->security->xss_clean($this->input->post('id')));
                 $veiculo->setTipo($this->security->xss_clean($this->input->post('tipo_veiculo')));
 
                 $retorno = $this->m_veiculo->editarVeiculo($veiculo);
@@ -45,8 +45,8 @@
                     echo 0;
                 }
             } else {
-                $cd_tpveiculo = $this->security->xss_clean($this->input->post('cd_tpveiculo'));
-                $dados['veiculo'] = $this->m_veiculo->getVeiculoById($cd_tpveiculo)->row();
+                $id = $this->security->xss_clean($this->input->post('id'));
+                $dados['veiculo'] = $this->m_veiculo->getVeiculoById($id);
                 $dados['titulo'] = "Editar Veículo";
                 $this->showAjax('inc/v_inc_veiculo_editar', $dados);
             }
@@ -72,9 +72,9 @@
         }
 
         public function excluirVeiculo() {
-            $cd_tpveiculo = $this->security->xss_clean($this->input->post('cd_tpveiculo'));
+            $id = $this->security->xss_clean($this->input->input_stream('id'));
 
-            $retorno = $this->m_veiculo->excluirVeiculo($cd_tpveiculo);
+            $retorno = $this->m_veiculo->excluirVeiculo($id);
 
             if ($retorno) {
                 echo 1;

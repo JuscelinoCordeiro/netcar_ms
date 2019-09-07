@@ -8,12 +8,14 @@
             parent::__construct();
             $this->isLogado();
             $this->load->model('m_tarifa');
+            $this->load->model('m_veiculo');
             $this->loadEntidade('Tarifa');
         }
 
         public function index() {
 
             $dados['tarifas'] = $this->m_tarifa->getTarifas();
+            $dados['veiculos'] = $this->m_veiculo->getVeiculos();
             $dados['titulo'] = "Tarifas";
             $this->showTemplate('v_tarifa', $dados);
         }
@@ -43,7 +45,7 @@
                 $tarifa->setTipoVeiculo($this->security->xss_clean($this->input->post('cd_tpveiculo')));
 
                 $dados['servico'] = $this->m_servico->getServicoById($tarifa->getServico())->row();
-                $dados['tipo_veiculo'] = $this->m_veiculo->getVeiculoById($tarifa->getTipoVeiculo())->row();
+                $dados['tipo_veiculo'] = $this->m_veiculo->getVeiculoById($tarifa->getTipoVeiculo());
                 $dados['tarifa'] = $this->m_tarifa->getTarifaServicoTpVeiculo($tarifa)->row();
 
                 $dados['titulo'] = "Edição de tarifa";
@@ -51,7 +53,7 @@
             }
         }
 
-        // metodo que escreve o preço no campo fo formulario de combo select
+        // metodo que escreve o preço no campo do formulario de combo select
         public function getTarifaServicoTpVeiculo() {
             $tarifa = new Tarifa();
 

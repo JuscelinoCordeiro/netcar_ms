@@ -133,4 +133,4 @@
       |
       |	$autoload['model'] = array('first_model' => 'first');
      */
-    $autoload['model'] = array('m_perfil');
+    $autoload['model'] = array('m_perfil', 'm_url_ms');

@@ -22,14 +22,14 @@
 
             <input type="hidden" name="acao" value="editar"/>
             <input type="hidden" name="cd_servico" value="<?= $servico->cd_servico ?>"/>
-            <input type="hidden" name="cd_tpveiculo" value="<?= $tipo_veiculo->cd_tpveiculo ?>"/>
+            <input type="hidden" name="cd_tpveiculo" value="<?= $tipo_veiculo->id ?>"/>
         </form>
     </div>
     <div class="col-md-2"></div>
 </div>
 <script>
-    $(document).ready(function () {
-        $("#salvarModal").click(function (e) {
+    $(document).ready(function() {
+        $("#salvarModal").click(function(e) {
             cd_servico = $("input[name=cd_servico]").val();
             cd_tpveiculo = $("input[name=cd_tpveiculo]").val();
             preco = $("input[name=preco]").val();
@@ -45,14 +45,14 @@
                     preco: preco,
                     acao: acao
                 },
-                beforeSend: function (xhr) {
+                beforeSend: function(xhr) {
                     xhr.overrideMimeType("text/plain; charset=UTF-8");
                 },
-                complete: function () {
+                complete: function() {
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data === '1') {
-                        $('#sucesso').on('hidden.bs.modal', function (e) {
+                        $('#sucesso').on('hidden.bs.modal', function(e) {
                             window.location.reload();
                         });
                         $('#alteracao').modal('hide');
@@ -60,7 +60,7 @@
                         $('#sucessoTexto').html(msg);
                         $('#sucesso').modal('show');
                     } else {
-                        $('#erro').on('hidden.bs.modal', function (e) {
+                        $('#erro').on('hidden.bs.modal', function(e) {
                             window.location.reload();
                         });
                         $('#excluir').modal('hide');
@@ -69,7 +69,7 @@
                         $('#erro').modal('show');
                     }
                 },
-                error: function () {
+                error: function() {
                     $("#erroTexto").html("Erro no sistema, tente novamente.");
                     $("#erro").modal('show');
                 }

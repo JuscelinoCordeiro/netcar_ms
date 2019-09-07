@@ -4,7 +4,7 @@
 
         //ATRIBUTOS
         //======================================================================
-        private $cd_tpveiculo;
+        private $id;
         private $tipo;
 
         //METODOS MAGICOS
@@ -19,8 +19,8 @@
 
         //METODOS SET
         //======================================================================
-        public function setCodigo($cd_tpveiculo) {
-            $this->cd_tpveiculo = $cd_tpveiculo;
+        public function setCodigo($id) {
+            $this->id = $id;
         }
 
         public function setTipo($tipo) {
@@ -30,7 +30,7 @@
         //METODOS GET
         //======================================================================
         public function getCodigo() {
-            return $this->cd_tpveiculo;
+            return $this->id;
         }
 
         public function getTipo() {

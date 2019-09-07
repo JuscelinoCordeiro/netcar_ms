@@ -57,7 +57,7 @@
 //                $servico = $this->m_servico->getServicoById($cd_servico)->row();
 //                $servico->servico = "Jurema";
 //                $dados['servico'] = $servico;
-                $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos()->result();
+                $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos();
                 $dados['tarifas'] = $this->m_tarifa->getTarifaServico($cd_servico)->result();
 
                 $dados['titulo'] = "Edição de Serviço";
@@ -81,7 +81,7 @@
                 }
             } else {
                 $this->load->model('m_veiculo');
-                $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos()->result();
+                $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos();
                 $dados['titulo'] = "Cadastro de Serviço";
                 $this->showAjax('inc/v_inc_servico_adicionar', $dados);
             }

@@ -16,14 +16,12 @@
         }
 
         public function getTarifas() {
-            $sql = "SELECT t.*, tv.tipo, s.servico
+            $sql = "SELECT t.*, s.servico
                 FROM tarifa t
-                INNER JOIN tipo_veiculo tv
-                ON t.cd_tpveiculo = tv.cd_tpveiculo
                 INNER JOIN servico s
                 ON t.cd_servico = s.cd_servico
                 where s.ativo = 1
-                ORDER BY t.cd_servico, tv.tipo";
+                ORDER BY t.cd_servico";
             return $this->db->query($sql);
         }
 

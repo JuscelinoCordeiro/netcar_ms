@@ -18,13 +18,13 @@
                 foreach ($tipo_veiculos as $tpVeiculo) {
                     $check = "";
                     foreach ($tarifas as $tarifa) {
-                        if ($tpVeiculo->cd_tpveiculo == $tarifa->cd_tpveiculo) {
+                        if ($tpVeiculo->id == $tarifa->cd_tpveiculo) {
                             $check = "checked";
                         }
                     }
                     ?>
                     <label class="checkbox-inline">
-                        <input class=" text text-uppercase"type="checkbox" name="check" id="tpv<?= $tpVeiculo->cd_tpveiculo ?>" value="<?= $tpVeiculo->cd_tpveiculo ?>" <?= $check ?> > <?= $tpVeiculo->tipo ?>
+                        <input class=" text text-uppercase"type="checkbox" name="check" id="tpv<?= $tpVeiculo->id ?>" value="<?= $tpVeiculo->id ?>" <?= $check ?> > <?= $tpVeiculo->tipo ?>
                     </label>
                     <?php
                 }
@@ -37,13 +37,13 @@
     <div class="col-md-2"></div>
 </div>
 <script>
-    $(document).ready(function () {
-        $("#salvarModal").click(function (e) {
+    $(document).ready(function() {
+        $("#salvarModal").click(function(e) {
             servico = $("input[name=servico]").val();
             cd_servico = $("input[name=cd_servico]").val();
             acao = $("input[name=acao]").val();
             var tipo_veiculos = new Array();
-            $("input[name=check]:checked").each(function () {
+            $("input[name=check]:checked").each(function() {
                 tipo_veiculos.push($(this).val());
             });
 
@@ -57,14 +57,14 @@
                     tipo_veiculos: tipo_veiculos,
                     acao: acao
                 },
-                beforeSend: function (xhr) {
+                beforeSend: function(xhr) {
                     xhr.overrideMimeType("text/plain; charset=UTF-8");
                 },
-                complete: function () {
+                complete: function() {
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data === '1') {
-                        $('#sucesso').on('hidden.bs.modal', function (e) {
+                        $('#sucesso').on('hidden.bs.modal', function(e) {
                             window.location.reload();
                         });
                         $('#alteracao').modal('hide');
@@ -72,7 +72,7 @@
                         $('#sucessoTexto').html(msg);
                         $('#sucesso').modal('show');
                     } else {
-                        $('#erro').on('hidden.bs.modal', function (e) {
+                        $('#erro').on('hidden.bs.modal', function(e) {
                             window.location.reload();
                         });
                         $('#excluir').modal('hide');
@@ -81,7 +81,7 @@
                         $('#erro').modal('show');
                     }
                 },
-                error: function () {
+                error: function() {
                     $("#erroTexto").html("Erro no sistema, tente novamente.");
                     $("#erro").modal('show');
                 }

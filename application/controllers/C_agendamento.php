@@ -85,7 +85,7 @@
 
                     $dados['titulo'] = "Agendamento de serviço";
                     $dados['usuarios'] = $this->m_usuario->getUsuarios()->result();
-                    $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos()->result();
+                    $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos();
                     $dados['servicos'] = $this->m_servico->getServicosAtivos()->result();
                     $dados['tarifas'] = $this->m_tarifa->getTarifas()->result();
                     $this->showAjax('inc/v_inc_agendamento_adicionar', $dados);
@@ -147,7 +147,7 @@
                 $this->load->model('m_veiculo');
 
                 $dados['agendamento'] = $this->m_agendamento->getAgendamento($cd_agend)->row();
-                $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos()->result();
+                $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos();
                 $dados['servicos'] = $this->m_servico->getServicosAtivos()->result();
                 $dados['titulo'] = "Editar agendamento";
                 $this->showAjax('inc/v_inc_agendamento_editar', $dados);
