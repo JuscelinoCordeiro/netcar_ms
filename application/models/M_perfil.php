@@ -9,7 +9,7 @@
             parent::__construct();
         }
 
-        const Cliente = 0;
+        const Cliente = 10;
         const Operador = 1;
         const Financeiro = 2;
         const Gerente = 3;

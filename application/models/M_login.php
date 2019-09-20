@@ -43,8 +43,8 @@
             return $valida;
         }
 
-        public function getUsuario($idt) {
-            $sql = " select cd_usuario, nome, endereco, celular, fixo, nivel, idt from usuario where idt = ?";
+        public function getUsuario($idt, $senha) {
+            $sql = " select cd_usuario, nome, endereco, celular, fixo, nivel, idt from usuario where idt = ? and senha = ?";
             return $this->db->query($sql, array($idt, $senha))->row();
         }
 

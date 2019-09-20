@@ -12,5 +12,6 @@
         //constantes de url microsserviços
         const tipo_veiculo = 'http://127.0.0.1:5000';
         const sca = 'http://127.0.0.1/ms-sca';
+        const nf = 'http://127.0.0.1/ms-sca';
 
     }

@@ -34,8 +34,6 @@
 //                        $senha = sha1($senha);
                         $valida = $this->m_login->existeUsuario($idt, $senha);
 
-
-
                         if ($valida) {
                             $usuario = new Usuario();
                             //pega o objeto com os dados do usuário

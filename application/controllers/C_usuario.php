@@ -67,7 +67,7 @@
                 $usuario->setNivel($this->security->xss_clean($this->input->post('nivel')));
 
                 $senha = $this->security->xss_clean($this->input->post('senha'));
-                $senha = sha1($senha);
+//                $senha = sha1($senha);
                 $usuario->setSenha($senha);
 
                 $existeUsuario = $this->m_usuario->existeUsuario($usuario->getIdentidade());
