@@ -15,18 +15,22 @@
                 <label class="control-label">Tipos de veículos</label>
             </div>
             <?php
-                foreach ($tipo_veiculos as $tpVeiculo) {
-                    $check = "";
-                    foreach ($tarifas as $tarifa) {
-                        if ($tpVeiculo->id == $tarifa->cd_tpveiculo) {
-                            $check = "checked";
+                if ($tipo_veiculos == M_http_code::not_found) {
+                    echo '<h4 class="text text-danger text-center"><b>Serviço Indisponível</b></h4>';
+                } else {
+                    foreach ($tipo_veiculos as $tpVeiculo) {
+                        $check = "";
+                        foreach ($tarifas as $tarifa) {
+                            if ($tpVeiculo->id == $tarifa->cd_tpveiculo) {
+                                $check = "checked";
+                            }
                         }
+                        ?>
+                        <label class="checkbox-inline">
+                            <input class=" text text-uppercase"type="checkbox" name="check" id="tpv<?= $tpVeiculo->id ?>" value="<?= $tpVeiculo->id ?>" <?= $check ?> > <?= $tpVeiculo->tipo ?>
+                        </label>
+                        <?php
                     }
-                    ?>
-                    <label class="checkbox-inline">
-                        <input class=" text text-uppercase"type="checkbox" name="check" id="tpv<?= $tpVeiculo->id ?>" value="<?= $tpVeiculo->id ?>" <?= $check ?> > <?= $tpVeiculo->tipo ?>
-                    </label>
-                    <?php
                 }
             ?>
 

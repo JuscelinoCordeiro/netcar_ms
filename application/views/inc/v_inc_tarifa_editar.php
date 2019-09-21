@@ -13,7 +13,14 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Tipo de veículo</label>
-                <input class="form-control text text-uppercase" disabled type="text" name="servico" required value="<?= $tipo_veiculo->tipo ?>"/>
+                <?php
+                    if ($tipo_veiculo == M_http_code::not_found) {
+                        $tipo_veiculo = "Serviço Indisponível";
+                    } else {
+                        $tipo_veiculo = $tipo_veiculo->tipo;
+                    }
+                ?>
+                <input class="form-control text text-uppercase" disabled type="text" name="servico" required value="<?= $tipo_veiculo ?>"/>
             </div>
             <div class="form-group">
                 <label class="control-label">Preço</label>
@@ -22,7 +29,7 @@
 
             <input type="hidden" name="acao" value="editar"/>
             <input type="hidden" name="cd_servico" value="<?= $servico->cd_servico ?>"/>
-            <input type="hidden" name="cd_tpveiculo" value="<?= $tipo_veiculo->id ?>"/>
+            <input type="hidden" name="cd_tpveiculo" value="<?= $cd_tpveiculo ?>"/>
         </form>
     </div>
     <div class="col-md-2"></div>

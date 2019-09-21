@@ -90,7 +90,7 @@
       |
       |	$autoload['helper'] = array('url', 'file');
      */
-    $autoload['helper'] = array('url', 'form', 'security', 'data_hora', 'perfil');
+    $autoload['helper'] = array('url', 'form', 'security', 'data_hora', 'perfil', 'microsservico');
 
     /*
       | -------------------------------------------------------------------
@@ -133,4 +133,4 @@
       |
       |	$autoload['model'] = array('first_model' => 'first');
      */
-    $autoload['model'] = array('m_perfil', 'm_url_ms');
+    $autoload['model'] = array('m_perfil', 'm_url_ms', 'm_http_code');

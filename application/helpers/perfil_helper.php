@@ -20,7 +20,7 @@
     if (!function_exists('nomePerfil')) {
 
         function nomePerfil($codPerfil) {
-            $perfis = array('Cliente', 'Operador', 'Financeiro', 'Gerente');
+            $perfis = array(10 => 'Cliente', 1 => 'Operador', 2 => 'Financeiro', 3 => 'Gerente');
 //			$perfis = array('C', 'O', 'F', 'G');
             return $perfis[$codPerfil];
         }

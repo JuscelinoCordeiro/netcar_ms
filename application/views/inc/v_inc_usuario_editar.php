@@ -34,13 +34,13 @@
                         <select class="form-control" name="nivel"  required>
                             <option value="<?= $usuario['nivel'] ?>">
                                 <?php
-                                echo $usuario['nivel'] == "0" ? "CLIENTE" : "";
+                                echo $usuario['nivel'] == "10" ? "CLIENTE" : "";
                                 echo $usuario['nivel'] == "1" ? "OPERADOR" : "";
                                 echo $usuario['nivel'] == "2" ? "FINANCEIRO" : "";
                                 echo $usuario['nivel'] == "3" ? "GERENTE" : "";
                                 ?>
                             </option>
-                            <option value="0">Cliente</option>
+                            <option value="10">Cliente</option>
                             <option value="1">Operador</option>
                             <option value="2">Financeiro</option>
                             <option value="3">Gerente</option>

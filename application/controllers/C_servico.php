@@ -53,10 +53,6 @@
 
                 $cd_servico = $this->security->xss_clean($this->input->post('cd_servico'));
                 $dados['servico'] = $this->m_servico->getServicoById($cd_servico)->row();
-                //== explicação
-//                $servico = $this->m_servico->getServicoById($cd_servico)->row();
-//                $servico->servico = "Jurema";
-//                $dados['servico'] = $servico;
                 $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos();
                 $dados['tarifas'] = $this->m_tarifa->getTarifaServico($cd_servico)->result();
 

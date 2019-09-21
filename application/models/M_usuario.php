@@ -18,54 +18,34 @@
             return $this->db->query($sql);
         }
 
-        //SEM SENHA E COM NIVEL 0 DEFAULT (USUÁRIO)
         public function cadastrarUsuario($usuario) {
-            if ($usuario->nivel !== NULL) {
-                $sql = "INSERT INTO usuario"
-                        . "(nome, idt, endereco, celular, nivel, fixo, senha)"
-                        . " VALUES (?, ?, ?, ?, ?, ?, ?)";
-                $result1 = $this->db->query($sql, array($usuario->nome, $usuario->identidade, $usuario->endereco, $usuario->celular,
-                    $usuario->nivel, $usuario->fixo, $usuario->senha));
 
-                //CADASTRO NO MS-SCA
-                $url = M_url_ms::sca . "/Usuarios/cadastrarUsuario";
-                $dados = json_encode(array(
-                    'nome' => $usuario->nome,
-                    'identidade' => $usuario->identidade,
-                    'senha' => $usuario->senha,
-                    'perfil' => $usuario->nivel));
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-                curl_setopt($ch, CURLOPT_FAILONERROR, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($dados))
-                );
+            $sql = "INSERT INTO usuario"
+                    . "(nome, idt, endereco, celular, nivel, fixo, senha)"
+                    . " VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $result1 = $this->db->query($sql, array($usuario->nome, $usuario->identidade, $usuario->endereco, $usuario->celular,
+                $usuario->nivel, $usuario->fixo, $usuario->senha));
 
-                $result2 = curl_exec($ch);
+            //CADASTRO NO MS-SCA
+            $url = M_url_ms::sca . "/Usuarios/cadastrarUsuario";
+            $dados = json_encode(array(
+                'nome' => $usuario->nome,
+                'identidade' => $usuario->identidade,
+                'senha' => $usuario->senha,
+                'perfil' => $usuario->nivel));
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
 
+            $result2 = json_decode(curl_exec($ch));
 
-                $result2 = json_decode(curl_exec($ch));
-                print_r($result2);
-//                return ($result1 && $result2->status);
-//                if ($result->status = '1') {
-//                    $resp = $result->dados;
-//                    if (isset($resp->ID) && !empty($resp->ID)) {
-//                        $valida = TRUE;
-//                    }
-//                } else {
-//                    $valida = FALSE;
-//                }
-//                return $valida;
-            } else {
-                $sql = "INSERT INTO usuario"
-                        . "(nome, idt, endereco, celular, fixo, nivel, senha)"
-                        . " VALUES (?, ?, ?, ?, ?, ?, ?)";
-                return $this->db->query($sql, array($usuario->nome, $usuario->identidade, $usuario->endereco, $usuario->celular,
-                            $usuario->fixo, 10, $usuario->senha));
-            }
+            return ($result1 && $result2->dados);
         }
 
         public function getUsuarioById($cd_usuario) {
@@ -108,9 +88,28 @@
             return $this->db->query($sql, $cd_usuario)->row_array();
         }
 
-        public function trocarSenha($cd_usuario, $senha_antiga, $senha_nova) {
+        public function trocarSenha($cd_usuario, $senha_antiga, $senha_nova, $identidade) {
             $sql = "update usuario set senha = ? where cd_usuario = ? and senha = ?";
-            return $this->db->query($sql, array($senha_nova, $cd_usuario, $senha_antiga));
+            $result1 = $this->db->query($sql, array($senha_nova, $cd_usuario, $senha_antiga));
+
+            //CADASTRO NO MS-SCA
+            $url = M_url_ms::sca . "/Usuarios/trocarSenha";
+            $dados = json_encode(array(
+                'identidade' => $identidade,
+                'senha' => $senha_nova));
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
+
+            $result2 = json_decode(curl_exec($ch));
+
+            return ($result1 && $result2->dados);
         }
 
     }

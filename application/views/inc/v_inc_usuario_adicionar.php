@@ -33,7 +33,7 @@
                         <label for="Perfil" class="control-label">Perfil</label>
                         <select class="form-control  text text-uppercase" name="nivel"  required>
                             <option value="">Selecione uma opção</option>
-                            <option value="0">CLIENTE</option>
+                            <option value="10">CLIENTE</option>
                             <option value="1">OPERADOR</option>
                             <option value="2">FINANCEIRO</option>
                             <option value="3">GERENTE</option>

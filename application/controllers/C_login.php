@@ -30,9 +30,10 @@
 
                 if (isset($acao) && $acao === 'logar') {
                     if ((isset($idt) && !empty($idt)) && (isset($senha) && !empty($senha))) {
-                        //verifica se existe o usuario
-//                        $senha = sha1($senha);
-                        $valida = $this->m_login->existeUsuario($idt, $senha);
+
+                        //verifica se existe o usuario, autenticando no ms-sca
+                        $senha = sha1($senha);
+                        $valida = $this->m_login->autenticar($idt, $senha);
 
                         if ($valida) {
                             $usuario = new Usuario();

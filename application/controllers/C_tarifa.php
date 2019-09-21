@@ -47,6 +47,7 @@
                 $dados['servico'] = $this->m_servico->getServicoById($tarifa->getServico())->row();
                 $dados['tipo_veiculo'] = $this->m_veiculo->getVeiculoById($tarifa->getTipoVeiculo());
                 $dados['tarifa'] = $this->m_tarifa->getTarifaServicoTpVeiculo($tarifa)->row();
+                $dados['cd_tpveiculo'] = $this->security->xss_clean($this->input->post('cd_tpveiculo'));
 
                 $dados['titulo'] = "Edição de tarifa";
                 $this->showAjax('inc/v_inc_tarifa_editar', $dados);

@@ -4,16 +4,28 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h2 class="titulo">Editar Serviço</h2>
-        <!--<a class="btn btn-success pull-right" href="/netcar/index.jsp"><i class="icon-arrow-left icon-white"></i>Voltar</a>-->
-        <form id="form_cad_usuario" action="" method="post">
-            <legend class="text-black hr3">Dados do Veículo</legend>
-            <div class="form-group">
-                <label class="control-label">Tipo de veículo</label>
-                <input class="form-control text text-uppercase" type="text" name="tipo_veiculo" required value="<?= $veiculo->tipo ?>"/>
-            </div>
-            <input type="hidden" name="acao" value="editar"/>
-            <input type="hidden" name="id" value="<?= $veiculo->id ?>"/>
-        </form>
+
+        <?php if ($veiculo == M_http_code::not_found) {
+                ?>
+                <tr>
+                    <td class="text text-center" colspan="3"><h4 class="text text-danger text-center"><b>Serviço Indisponível</b></h4></td>
+                </tr>
+                <?php
+            } else {
+                ?>
+                <form id="form_cad_usuario" action="" method="post">
+                    <legend class="text-black hr3">Dados do Veículo</legend>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de veículo</label>
+                        <input class="form-control text text-uppercase" type="text" name="tipo_veiculo" required value="<?= $veiculo->tipo ?>"/>
+                    </div>
+                    <input type="hidden" name="acao" value="editar"/>
+                    <input type="hidden" name="id" value="<?= $veiculo->id ?>"/>
+                </form>
+                <?php
+            }
+        ?>
+
     </div>
     <div class="col-md-2"></div>
 </div>

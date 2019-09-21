@@ -11,16 +11,27 @@
 
         public function getVeiculos() {
             $url = M_url_ms::tipo_veiculo . "/tipo_veiculos";
+
+            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
+                return M_http_code::not_found;
+            }
             return json_decode(file_get_contents($url));
         }
 
         public function getVeiculoById($id) {
             $url = M_url_ms::tipo_veiculo . "/tipo_veiculos/$id";
+            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
+                return M_http_code::not_found;
+            }
             return json_decode(file_get_contents($url));
         }
 
         public function editarVeiculo($veiculo) {
             $url = M_url_ms::tipo_veiculo . "/update";
+            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
+                return M_http_code::not_found;
+            }
+
             $dados = json_encode(array('id' => $veiculo->id,
                 'tipo' => $veiculo->tipo));
             $ch = curl_init($url);
@@ -39,6 +50,10 @@
 
         public function cadastrarVeiculo($tipo_veiculo) {
             $url = M_url_ms::tipo_veiculo . "/add";
+            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
+                return M_http_code::not_found;
+            }
+
             $dados = json_encode(array('tipo' => $tipo_veiculo));
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -59,6 +74,10 @@
             try {
                 $json = '';
                 $url = M_url_ms::tipo_veiculo . "/delete/$id";
+                if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
+                    return M_http_code::not_found;
+                }
+
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");

@@ -14,7 +14,7 @@
 //        $valida = $this->db->query($sql, array($idt, $senha))->num_rows();
 //        return $valida;
 //    }
-        public function existeUsuario($idt, $senha) {
+        public function autenticar($idt, $senha) {
             $url = M_url_ms::sca . "/Usuarios/existeUsuario";
             $valida = json_decode(file_get_contents($url));
 

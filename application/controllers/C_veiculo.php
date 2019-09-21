@@ -66,8 +66,14 @@
                     echo 0;
                 }
             } else {
+                $url = M_url_ms::tipo_veiculo . "/add";
+                if (!file_exists($url)) {
+                    $status_ms = M_http_code::not_found;
+                }
+
                 $dados['titulo'] = "Cadastro de Veículo";
-                $this->showAjax('inc/v_inc_veiculo_adicionar');
+                $dados['status_ms'] = $status_ms;
+                $this->showAjax('inc/v_inc_veiculo_adicionar', $dados);
             }
         }
 

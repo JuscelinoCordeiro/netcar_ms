@@ -12,21 +12,27 @@
         </thead>
         <tbody>
             <?php
-//                print_r($veiculos);
-//                die();
-                $i = 1;
-                foreach ($veiculos as $veiculo) {
+                if ($veiculos == M_http_code::not_found) {
                     ?>
                     <tr>
-                        <td class="text text-center"><?= $i ?></td>
-                        <td class="text-uppercase text text-center"><?= $veiculo->tipo ?></td>
-                        <td class="text text-center">
-                            <a href="#" id="btnEdit<?= $veiculo->id ?>" id_veiculo="<?= $veiculo->id ?>"><img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar" border="0"/></a>
-                            <a id="btnExc<?= $veiculo->id ?>" class="excluir" veiculo="<?= $veiculo->tipo ?>" id_veiculo="<?= $veiculo->id ?>" ><img src="<?= base_url('assets/img/b_excluir.png') ?>" alt="excluir" title="Excluir o veículo" border="0"/></a>
-                        </td>
+                        <td class="text text-center" colspan="3"><h4 class="text text-danger"><b>Serviço Indisponível</b></h4></td>
                     </tr>
                     <?php
-                    $i++;
+                } else {
+                    $i = 1;
+                    foreach ($veiculos as $veiculo) {
+                        ?>
+                        <tr>
+                            <td class="text text-center"><?= $i ?></td>
+                            <td class="text-uppercase text text-center"><?= $veiculo->tipo ?></td>
+                            <td class="text text-center">
+                                <a href="#" id="btnEdit<?= $veiculo->id ?>" id_veiculo="<?= $veiculo->id ?>"><img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar" border="0"/></a>
+                                <a id="btnExc<?= $veiculo->id ?>" class="excluir" veiculo="<?= $veiculo->tipo ?>" id_veiculo="<?= $veiculo->id ?>" ><img src="<?= base_url('assets/img/b_excluir.png') ?>" alt="excluir" title="Excluir o veículo" border="0"/></a>
+                            </td>
+                        </tr>
+                        <?php
+                        $i++;
+                    }
                 }
             ?>
         </tbody>

@@ -64,10 +64,12 @@
                 $usuario->setEndereco($this->security->xss_clean($this->input->post('endereco')));
                 $usuario->setCelular($this->security->xss_clean($this->input->post('celular')));
                 $usuario->setFixo($this->security->xss_clean($this->input->post('fixo')));
-                $usuario->setNivel($this->security->xss_clean($this->input->post('nivel')));
+                $nivel = ($this->security->xss_clean($this->input->post('nivel')));
+                $usuario->setNivel(!empty($nivel) ? $nivel : 10);
+
 
                 $senha = $this->security->xss_clean($this->input->post('senha'));
-//                $senha = sha1($senha);
+                $senha = !empty($senha) ? sha1($senha) : "";
                 $usuario->setSenha($senha);
 
                 $existeUsuario = $this->m_usuario->existeUsuario($usuario->getIdentidade());
@@ -138,10 +140,11 @@
                 $senha_atual = $this->security->xss_clean($this->input->post('senha_atual'));
                 $senha_nova = $this->security->xss_clean($this->input->post('senha_nova'));
                 $usuario_logado = $this->session->userdata('dados_usuario')->cd_usuario;
+                $identidade = $this->session->userdata('dados_usuario')->idt;
 
                 $senha_atual = sha1($senha_atual);
                 $senha_nova = sha1($senha_nova);
-                $retorno = $this->m_usuario->trocarSenha($usuario_logado, $senha_atual, $senha_nova);
+                $retorno = $this->m_usuario->trocarSenha($usuario_logado, $senha_atual, $senha_nova, $identidade);
 
                 if ($retorno) {
                     echo 1;

@@ -16,23 +16,40 @@
             $i = 1;
 
             foreach ($tarifas->result() as $tarifa) {
-                foreach ($veiculos as $veiculo) {
-                    if ($tarifa->cd_tpveiculo == $veiculo->id) {
-                        ?>
-                        <tr>
-                            <td class="text text-center text-uppercase"><?= $i ?></td>
-                            <td class="text text-center text-uppercase"><?= $tarifa->servico ?></td>
-                            <td class="text text-center text-uppercase"><?= $veiculo->tipo ?></td>
-                            <td class="text text-center text-uppercase">
-                                <?= $tarifa->preco ? "R$ " . $tarifa->preco . ",00" : "<span class=\"label label-info\">Configurar preço</span>" ?></td>
-                            <td class="text text-center text-uppercase"">
-                                <a href="#" id="btnEdit<?= $tarifa->cd_servico ?>" cd_tpservico="<?= $tarifa->cd_servico ?>" cd_tpveiculo="<?= $tarifa->cd_tpveiculo ?>">
-                                    <img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar" border="0">
-                                </a>
-                            </td>
-                        </tr>
-                        <?php
+                if ($veiculos != M_http_code::not_found) {
+                    foreach ($veiculos as $veiculo) {
+                        if ($tarifa->cd_tpveiculo == $veiculo->id) {
+                            ?>
+                            <tr>
+                                <td class="text text-center text-uppercase"><?= $i ?></td>
+                                <td class="text text-center text-uppercase"><?= $tarifa->servico ?></td>
+                                <td class="text text-center text-uppercase"><?= $veiculo->tipo ?></td>
+                                <td class="text text-center text-uppercase">
+                                    <?= $tarifa->preco ? "R$ " . $tarifa->preco . ",00" : "<span class=\"label label-info\">Configurar preço</span>" ?></td>
+                                <td class="text text-center text-uppercase"">
+                                    <a href="#" id="btnEdit<?= $tarifa->cd_servico ?>" cd_tpservico="<?= $tarifa->cd_servico ?>" cd_tpveiculo="<?= $tarifa->cd_tpveiculo ?>">
+                                        <img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar" border="0">
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php
+                        }
                     }
+                } else {
+                    ?>
+                    <tr>
+                        <td class="text text-center text-uppercase"><?= $i ?></td>
+                        <td class="text text-center text-uppercase"><?= $tarifa->servico ?></td>
+                        <td class="text text-center text-uppercase"><span class="text text-danger"><b>Serviço Indisponível</b></span></td>
+                        <td class="text text-center text-uppercase">
+                            <?= $tarifa->preco ? "R$ " . $tarifa->preco . ",00" : "<span class=\"label label-info\">Configurar preço</span>" ?></td>
+                        <td class="text text-center text-uppercase"">
+                            <a href="#" id="btnEdit<?= $tarifa->cd_servico ?>" cd_tpservico="<?= $tarifa->cd_servico ?>" cd_tpveiculo="<?= $tarifa->cd_tpveiculo ?>">
+                                <img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar" border="0">
+                            </a>
+                        </td>
+                    </tr>
+                    <?php
                 }
                 $i++;
             }
