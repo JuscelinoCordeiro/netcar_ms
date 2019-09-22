@@ -8,6 +8,7 @@
             parent::__construct();
             $this->isLogado();
             $this->load->model('m_faturamento');
+            $this->load->model('m_veiculo');
         }
 
         public function listarFaturamentoDiario() {
@@ -15,8 +16,16 @@
             // a soma dos faturamentos
             $faturamento = $this->m_faturamento->listarFaturamentoDiario();
 
+            //PEGANDO O TIPO DE VEICULO DO MICROSSERVIÇO
+            $fatura = $faturamento['faturamento'];
+            foreach ($fatura as &$f) {
+                $tipo_veiculo = $this->m_veiculo->getVeiculoById($f->cd_tpveiculo);
+                $f->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+            }
+
+
             $dados['titulo'] = "Faturamento Diário";
-            $dados['faturamento'] = $faturamento['faturamento'];
+            $dados['faturamento'] = $fatura;
             $dados['total'] = $faturamento['total'];
 
             $this->showTemplate('v_faturamento_diario', $dados);
@@ -32,8 +41,16 @@
                 // a soma dos faturamentos
                 $faturamento = $this->m_faturamento->listarFaturamentoPeriodo($dt_ini, $dt_fim);
 
+                //PEGANDO O TIPO DE VEICULO DO MICROSSERVIÇO
+                $fatura = $faturamento['faturamento'];
+                foreach ($fatura as &$f) {
+                    $tipo_veiculo = $this->m_veiculo->getVeiculoById($f->cd_tpveiculo);
+                    $f->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+                }
+
+
                 $dados['titulo'] = "Faturamentos";
-                $dados['faturamento'] = $faturamento['faturamento'];
+                $dados['faturamento'] = $fatura;
                 $dados['total'] = $faturamento['total'];
                 $dados['dt_inicio'] = $dt_ini;
                 $dados['dt_fim'] = $dt_fim;

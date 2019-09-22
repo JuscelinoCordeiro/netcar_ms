@@ -7,18 +7,21 @@
 
         public function listarFaturamentoDiario() {
             $dataHoje = date("Y-m-d");
-            $faturamento = "select f.*, tv.tipo, s.servico "
+
+            $sql = "select f.*, s.servico "
                     . " from faturamento as f "
-                    . " inner join tipo_veiculo as tv on f.cd_tpveiculo = tv.cd_tpveiculo"
                     . " inner JOIN servico as s on f.cd_servico = s.cd_servico"
                     . " where f.data = ?"
                     . " order by f.data asc , f.horario asc";
 
+
+
+
+//            print_r($faturamento);
             $total = "select sum(valor) as total from faturamento where data = ?";
 
             //pega um arraylist de objetos de faturamentos
-            $dados['faturamento'] = $this->db->query($faturamento, $dataHoje)->result();
-
+            $dados['faturamento'] = $this->db->query($sql, $dataHoje)->result();
             //pega a soma dos valores faturados
             $dados['total'] = $this->db->query($total, $dataHoje)->row()->total;
 
@@ -26,9 +29,8 @@
         }
 
         public function listarFaturamentoPeriodo($dt_inicio, $dt_fim) {
-            $faturamento = "select f.*, tv.tipo, s.servico "
+            $faturamento = "select f.*, s.servico "
                     . " from faturamento as f "
-                    . " inner join tipo_veiculo as tv on f.cd_tpveiculo = tv.cd_tpveiculo"
                     . " inner JOIN servico as s on f.cd_servico = s.cd_servico"
                     . " where f.data between ? and ? "
                     . " order by f.data asc , f.horario asc";

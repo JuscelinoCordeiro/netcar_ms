@@ -61,12 +61,17 @@
             $tarifa->setServico($this->security->xss_clean($this->input->post('cd_servico')));
             $tarifa->setTipoVeiculo($this->security->xss_clean($this->input->post('cd_tpveiculo')));
 
-            $tarifa = $this->m_tarifa->getTarifaServicoTpVeiculo($tarifa)->row()->preco;
-
-            if ($tarifa != NULL) {
-                echo "R$ " . $tarifa . ",00";
+            //CASO O MICROSSERVIÇO TIPO_VEICULO ESTEJA INDISPONÍVEL
+            if ($tarifa->getTipoVeiculo() == '-1') {
+                echo '';
             } else {
-                echo 'ERRO!! Serviço não tarifado.';
+                $tarifa = $this->m_tarifa->getTarifaServicoTpVeiculo($tarifa)->row()->preco;
+
+                if ($tarifa != NULL) {
+                    echo "R$ " . $tarifa . ",00";
+                } else {
+                    echo 'ERRO!! Serviço não tarifado.';
+                }
             }
         }
 

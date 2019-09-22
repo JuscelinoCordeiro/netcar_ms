@@ -26,13 +26,17 @@
                 <select class="form-control text text-uppercase" name="tipo_veiculo" id="tipo_veiculo"  required >
                     <option value="" selected="">Selecione o tipo de veículo</option>
                     <?php
-                        foreach ($tipo_veiculos as $tpveiculos) {
-                            if ($agendamento->cd_tpveiculo == $tpveiculos->id) {
-                                $selecionado = "selected";
-                            } else {
-                                $selecionado = "";
+                        if ($tipo_veiculos == M_http_code::not_found) {
+                            echo '<option ' . $selecionado . ' value="-1"><span class="text text-danger"><b>Serviço Indisponível</b></span></option>';
+                        } else {
+                            foreach ($tipo_veiculos as $tpveiculos) {
+                                if ($agendamento->cd_tpveiculo == $tpveiculos->id) {
+                                    $selecionado = "selected";
+                                } else {
+                                    $selecionado = "";
+                                }
+                                echo '<option ' . $selecionado . ' value="' . $tpveiculos->id . '">' . $tpveiculos->tipo . '</option>';
                             }
-                            echo '<option ' . $selecionado . ' value="' . $tpveiculos->id . '">' . $tpveiculos->tipo . '</option>';
                         }
                     ?>
                 </select>
@@ -81,7 +85,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Valor</label>
-                <input class="form-control  text text-uppercase" type="text" name="preco" id="preco" required value="R$ <?= $agendamento->preco ?>,00"/>
+                <input class="form-control  text text-uppercase" type="text" name="preco" id="preco" required value="<?= (!empty($agendamento->preco)) ? 'R$ ' . $agendamento->preco . ',00' : 'Ver valor na tabela da loja' ?>"/>
             </div>
             <input type="hidden" name="acao" value="editar"/>
             <input type="hidden" name="cd_agend" value="<?= $agendamento->cd_agendamento ?>"/>

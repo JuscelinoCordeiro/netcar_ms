@@ -20,15 +20,20 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Placa do veículo</label>
-                <input class="form-control  text text-uppercase" type="text" name="placa" required placeholder="Digite a placa do veículo (opcional)"/>
+                <input class="form-control  text text-uppercase" type="text" name="placa"  placeholder="Digite a placa do veículo (opcional)"/>
             </div>
             <div class="form-group">
                 <label for="Perfil" class="control-label">Tipo de veiculo</label>
                 <select class="form-control text text-uppercase" name="tipo_veiculo" id="tipo_veiculo"  required >
                     <option value="" selected="">Selecione o tipo de veículo</option>
                     <?php
-                        foreach ($tipo_veiculos as $tpveiculos) {
-                            echo '<option value="' . $tpveiculos->id . '">' . $tpveiculos->tipo . '</option>';
+                        if ($tipo_veiculos == M_http_code::not_found) {
+                            echo '<option value="-1">Serviço Indisponível</option>';
+                        } else {
+                            echo '<option value="" selected="">Selecione o tipo de veículo</option>';
+                            foreach ($tipo_veiculos as $tpveiculos) {
+                                echo '<option value="' . $tpveiculos->id . '">' . $tpveiculos->tipo . '</option>';
+                            }
                         }
                     ?>
                 </select>

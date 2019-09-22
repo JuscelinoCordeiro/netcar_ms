@@ -120,12 +120,17 @@
         public function comboServicos() {
             $cd_tpVeiculo = $this->security->xss_clean($this->input->post('cd_tpveiculo'));
 
-            $servicos = $this->m_servico->getServicosTpVeiculos($cd_tpVeiculo)->result();
+            if ($cd_tpVeiculo == '-1') {
+                $servicos = $this->m_servico->getServicos()->result();
+            } else {
+                $servicos = $this->m_servico->getServicosTpVeiculos($cd_tpVeiculo)->result();
+            }
 
             $servico = "<option value=\"\">Selecione um serviço</option>";
             foreach ($servicos as $sv) {
                 $servico .= '<option value="' . $sv->cd_servico . '">' . $sv->servico . '</option>';
             }
+
             echo $servico;
         }
 

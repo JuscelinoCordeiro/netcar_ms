@@ -9,7 +9,7 @@
 </style>
 <div class="row">
     <?php
-        if ($agendamentos->result()) {
+        if ($agendamentos) {
             ?>
             <div class="col-md-2"></div>
             <div class="col-md-8 text text-center"><h3 class="titulo">Agendamentos para o período de <?= inverteData($dt_inicio) . " a " . inverteData($dt_fim) ?></h3></div>
@@ -30,18 +30,18 @@
                 </thead>
                 <?php
                 $i = 0;
-                foreach ($agendamentos->result() as $ag) {
+                foreach ($agendamentos as $ag) {
                     $i = $i + 1;
                     ?>
                     <tr class="text text-center text-uppercase">
                         <td><?= $i ?></td>
                         <td><?= $ag->nome ?></td>
-                        <td><?= $ag->tipo ?></td>
+                        <td><?= (!empty($ag->tipo)) ? $ag->tipo : '<span class="text text-danger"><b>Serviço Indisponível</b></span>' ?></td>
                         <td><?= $ag->placa ? $ag->placa : "---" ?></td>
                         <td><?= $ag->servico ?></td>
                         <td><?= date('d/m/Y', strtotime($ag->data)) ?></td>
                         <td><?= $ag->horario ?></td>
-                        <td><?= "R$ " . $ag->preco . ",00" ?></td>
+                        <td><?= (!empty($ag->preco)) ? "R$ " . $ag->preco . ",00" : '<span class="text text-danger"><b>Ver valor na tabela da loja</b></sapn>' ?></td>
                         <td class="text-center">
                             <?php
                             $status = $ag->status;
@@ -56,9 +56,11 @@
                                     <a id="btnFin<?= $ag->cd_agendamento ?>" class="finalizar" cd_agend="<?= $ag->cd_agendamento ?>"><img src="<?= base_url('assets/img/b_finalizar2.png') ?>" height="17" width="17" alt="finalizar" title="Finalizar agendamento" border="0"/></a>
                                     <?php
                                 }
+                                $tipo = (!empty($ag->tipo)) ? $ag->tipo : "";
                                 ?>
-                                <a href="/netcar/agendamento_editar?cd_agendamento=<?= $ag->cd_agendamento ?>"><img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar agendamento" border="0"/></a>
-                                <a  id="btnExc<?= $ag->cd_agendamento ?>" cd_agend="<?= $ag->cd_agendamento ?>" class="excluir" id="btnExc<?= $ag->cd_agendamento ?>" cd_agend="<?= $ag->cd_agendamento ?>"><img src="<?= base_url('assets/img/b_excluir.png') ?>" alt="excluir" title="Excluir agendamento" border="0"/></a>
+                                <a id="btnEdit<?= $ag->cd_agendamento ?>" cd_agend="<?= $ag->cd_agendamento ?>" tipo="<?= $tipo ?> "href="#"><img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar agendamento" border="0"/></a>
+                                <a id="btnExc<?= $ag->cd_agendamento ?>" cd_agend="<?= $ag->cd_agendamento ?>" class="excluir" id="btnExc<?= $ag->cd_agendamento ?>" cd_agend="<?= $ag->cd_agendamento ?>"><img src="<?= base_url('assets/img/b_excluir.png') ?>" alt="excluir" title="Excluir agendamento" border="0"/></a>
+
                                 <?php
                             } else {
                                 echo "SERVIÇO REALIZADO";

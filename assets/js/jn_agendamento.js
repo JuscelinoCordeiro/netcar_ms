@@ -108,13 +108,15 @@ $(document).ready(function() {
     // EDITAR O SERVIÇO
     $("a[id^=btnEdit]").click(function(e) {
         cd_agend = $(this).attr('cd_agend');
+        tipo = $(this).attr('tipo');
 
         $.ajax({
             type: 'POST',
             url: '/netcar/c_agendamento/editarAgendamento',
             cache: false,
             data: {
-                cd_agend: cd_agend
+                cd_agend: cd_agend,
+                tipo_veiculo: tipo
             },
             beforeSend: function(xhr) {
                 xhr.overrideMimeType("text/plain; charset=UTF-8");
