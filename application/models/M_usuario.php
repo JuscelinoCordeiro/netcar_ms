@@ -19,6 +19,9 @@
         }
 
         public function cadastrarUsuario($usuario) {
+            if (!checarStatusMs(M_url_ms::sca)) {
+                return M_http_code::not_found;
+            }
 
             $sql = "INSERT INTO usuario"
                     . "(nome, idt, endereco, celular, nivel, fixo, senha)"
@@ -32,7 +35,8 @@
                 'nome' => $usuario->nome,
                 'identidade' => $usuario->identidade,
                 'senha' => $usuario->senha,
-                'perfil' => $usuario->nivel));
+                'perfil' => $usuario->nivel,
+                'sistema_id' => id_sistema_sca));
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
@@ -55,9 +59,35 @@
 
         public function excluirUsuario($cd_usuario) {
 //        $sql = "delete from usuario where cd_usuario = ?";
-            //desativar para manter o historico de agendamento, não gera inconsistencia
+
+            if (!checarStatusMs(M_url_ms::sca)) {
+                return M_http_code::not_found;
+            }
+
+            //desativar para manter o historico de agendamento, não gerar inconsistencia
             $sql = "update usuario set ativo = 0 where cd_usuario = ?";
-            return $this->db->query($sql, $cd_usuario);
+            $result1 = $this->db->query($sql, $cd_usuario);
+
+            //remove os perfis do usuario para esse sitema MS-SCA
+            $usuario = $this->getContaUsuario($cd_usuario);
+
+            $url = M_url_ms::sca . "/Usuarios/desativarUsuario";
+            $dados = json_encode(array(
+                'identidade' => $usuario['idt'],
+                'sistema_id' => id_sistema_sca));
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
+
+            $result2 = json_decode(curl_exec($ch));
+
+            return ($result1 && $result2->dados);
         }
 
         public function editarUsuario($usuario) {
@@ -89,6 +119,9 @@
         }
 
         public function trocarSenha($cd_usuario, $senha_antiga, $senha_nova, $identidade) {
+            if (!checarStatusMs(M_url_ms::sca)) {
+                return M_http_code::not_found;
+            }
             $sql = "update usuario set senha = ? where cd_usuario = ? and senha = ?";
             $result1 = $this->db->query($sql, array($senha_nova, $cd_usuario, $senha_antiga));
 

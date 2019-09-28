@@ -36,12 +36,12 @@
                     <tr class="text text-center text-uppercase">
                         <td><?= $i ?></td>
                         <td><?= $ag->nome ?></td>
-                        <td><?= (!empty($ag->tipo)) ? $ag->tipo : '<span class="text text-danger"><b>Serviço Indisponível</b></span>' ?></td>
+                        <td><?= $ag->tipo ?></td>
                         <td><?= $ag->placa ? $ag->placa : "---" ?></td>
                         <td><?= $ag->servico ?></td>
                         <td><?= date('d/m/Y', strtotime($ag->data)) ?></td>
                         <td><?= $ag->horario ?></td>
-                        <td><?= (!empty($ag->preco)) ? "R$ " . $ag->preco . ",00" : '<span class="text text-danger"><b>Ver valor na tabela da loja</b></sapn>' ?></td>
+                        <td><?= ($ag->preco !== 'Sem Informação') ? "R$ " . $ag->preco . ",00" : $ag->preco ?></td>
                         <td class="text-center">
                             <?php
                             $status = $ag->status;
@@ -52,9 +52,11 @@
                                 </span>
                                 <?php
                                 if (validaPerfil(array(M_perfil::Operador, M_perfil::Gerente), $this->session->userdata('dados_usuario')->nivel)) {
-                                    ?>
-                                    <a id="btnFin<?= $ag->cd_agendamento ?>" class="finalizar" cd_agend="<?= $ag->cd_agendamento ?>"><img src="<?= base_url('assets/img/b_finalizar2.png') ?>" height="17" width="17" alt="finalizar" title="Finalizar agendamento" border="0"/></a>
-                                    <?php
+                                    if (!empty($ag->cd_tpveiculo)) {
+                                        ?>
+                                        <a id="btnFin<?= $ag->cd_agendamento ?>" class="finalizar" cd_agend="<?= $ag->cd_agendamento ?>"><img src="<?= base_url('assets/img/b_finalizar2.png') ?>" height="17" width="17" alt="finalizar" title="Finalizar agendamento" border="0"/></a>
+                                        <?php
+                                    }
                                 }
                                 $tipo = (!empty($ag->tipo)) ? $ag->tipo : "";
                                 ?>

@@ -21,6 +21,8 @@
                 </thead>
                 <?php
                 $i = 0;
+//                print_r($agendamentos_dia);
+//                die();
                 foreach ($agendamentos_dia as $agendamento) {
 
                     $i = $i + 1;
@@ -28,12 +30,12 @@
                     <tr class="text text-center text-uppercase">
                         <td><?= $i ?></td>
                         <td><?= $agendamento->nome ?></td>
-                        <td><?= (!empty($agendamento->tipo)) ? $agendamento->tipo : '<span class="text text-danger"><b>Serviço Indisponível</b></span>' ?></td>
+                        <td><?= ($agendamento->tipo != '') ? $agendamento->tipo : 'Sem Informação' ?></td>
                         <td><?= $agendamento->placa ? $agendamento->placa : "---" ?></td>
                         <td><?= $agendamento->servico ?></td>
                         <td><?= dataView($agendamento->data) ?></td>
                         <td><?= horaView($agendamento->horario) ?></td>
-                        <td><?= (!empty($agendamento->preco)) ? "R$ " . $agendamento->preco . ",00" : '<span class="text text-danger"><b>Ver valor na tabela da loja</b></sapn>' ?></td>
+                        <td><?= ($agendamento->preco !== 'Sem Informação') ? "R$ " . $agendamento->preco . ",00" : $agendamento->preco ?></td>
                         <td class="text-center">
                             <?php
                             $status = $agendamento->status;
@@ -44,9 +46,12 @@
                                 </span>
                                 <?php
                                 if (validaPerfil(array(M_perfil::Operador, M_perfil::Gerente), $this->session->userdata('dados_usuario')->nivel)) {
-                                    ?>
-                                    <a id = "btnFin<?= $agendamento->cd_agendamento ?>" class = "finalizar" cd_agend = "<?= $agendamento->cd_agendamento ?>"><img src = "<?= base_url('assets/img/b_finalizar2.png') ?>" height = "17" width = "17" alt = "finalizar" title = "Finalizar agendamento" border = "0"/></a>
-                                    <?php
+                                    if (!empty($agendamento->cd_tpveiculo)) {
+                                        ?>
+
+                                        <a id = "btnFin<?= $agendamento->cd_agendamento ?>" class = "finalizar" cd_agend = "<?= $agendamento->cd_agendamento ?>"><img src = "<?= base_url('assets/img/b_finalizar2.png') ?>" height = "17" width = "17" alt = "finalizar" title = "Finalizar agendamento" border = "0"/></a>
+                                        <?php
+                                    }
                                 }
                                 $tipo = (!empty($agendamento->tipo)) ? $agendamento->tipo : "";
                                 ?>

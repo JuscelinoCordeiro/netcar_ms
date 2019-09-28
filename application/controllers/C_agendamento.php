@@ -26,12 +26,30 @@
 
             if (validaPerfil(array(M_perfil::Cliente), $perfil_usuario_logado)) {
                 $agendamentos = $this->m_agendamento->getAgendamentosDoDia($dtHoje, $cd_usuario_logado)->result();
-                ;
             } else {
                 $agendamentos = $this->m_agendamento->getAgendamentosDoDia($dtHoje)->result();
             }
 
-
+            foreach ($agendamentos as &$ag) {
+                $tipo_veiculo = $this->m_veiculo->getVeiculoById($ag->cd_tpveiculo);
+                if (!isset($ag->tipo)) {
+                    @$ag->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+                }
+                if (!isset($ag->preco) || empty($ag->preco)) {
+                    if (isset($ag->cd_tpveiculo)) {
+                        $objTarifa = new Tarifa();
+                        $objTarifa->setTipoVeiculo($ag->cd_tpveiculo);
+                        $objTarifa->setServico($ag->cd_servico);
+                        @$tarifa = $this->m_tarifa->getTarifaServicoTpVeiculo($objTarifa)->row()->preco;
+                        @$ag->preco = (isset($tarifa)) ? $tarifa : 'Sem Informação';
+                    } else {
+                        @$ag->preco = 'Sem Informação';
+                    }
+                }
+            }
+//            echo '<pre>';
+//            print_r($agendamentos);
+//            die();
 
             $dados['agendamentos_dia'] = $agendamentos;
             $dados['titulo'] = "Agenda do dia";
@@ -59,13 +77,15 @@
                     if (!isset($ag->tipo)) {
                         @$ag->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
                     }
-                    if (!isset($ag->preco)) {
+                    if (!isset($ag->preco) || empty($ag->preco)) {
                         if (isset($ag->cd_tpveiculo)) {
                             $objTarifa = new Tarifa();
                             $objTarifa->setTipoVeiculo($ag->cd_tpveiculo);
                             $objTarifa->setServico($ag->cd_servico);
                             $tarifa = $this->m_tarifa->getTarifaServicoTpVeiculo($objTarifa)->row()->preco;
-                            @$ag->preco = (isset($tarifa)) ? $tarifa : 'Sem Informação';
+                            $ag->preco = (isset($tarifa)) ? $tarifa : 'Sem Informação';
+                        } else {
+                            $ag->preco = 'Sem Informação';
                         }
                     }
                 }
@@ -176,6 +196,7 @@
                 $this->load->model('m_servico');
                 $this->load->model('m_veiculo');
 
+                $agendamento = $this->m_agendamento->getAgendamento($cd_agend, $tipo_veiculo)->row();
                 $dados['agendamento'] = $this->m_agendamento->getAgendamento($cd_agend, $tipo_veiculo)->row();
                 $dados['tipo_veiculos'] = $this->m_veiculo->getVeiculos();
                 $dados['servicos'] = $this->m_servico->getServicosAtivos()->result();
