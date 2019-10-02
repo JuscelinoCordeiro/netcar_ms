@@ -16,26 +16,26 @@
             </tr>
         </thead>
         <?php
-        $i = 1;
-        foreach ($usuarios->result() as $user) {
-            ?>
-            <tr>
-                <td class="text text-center text-uppercase"><?= $i ?></td>
-                <td class="text text-center text-uppercase"><?= $user->nome ?></td>
-                <td class="text text-center text-uppercase"><?= $user->idt ?></td>
-                <td class="text text-center text-uppercase"><?= $user->endereco ?></td>
-                <td class="text text-center text-uppercase"><?= $user->celular ?></td>
-                <td class="text text-center text-uppercase"><?= $user->fixo ?></td>
-                <td class="text text-center text-uppercase"><?= $user->perfil ?></td>
-                <td class="text text-center text-uppercase">
-                    <a href="#" id="btnEdit<?= $user->cd_usuario ?>" cd_usuario="<?= $user->cd_usuario ?>"><img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar usuário" border="0"/></a>
-                    <a class="excluir" id="btnExc<?= $user->cd_usuario ?>" cd_usuario="<?= $user->cd_usuario ?>"><img src="<?= base_url('assets/img/b_excluir.png') ?>" alt="excluir" title="Excluir usuário" border="0"/></a>
-                </td>
-            </tr>
+            $i = 1;
+            foreach ($usuarios->result() as $user) {
+                ?>
+                <tr>
+                    <td class="text text-center text-uppercase"><?= $i ?></td>
+                    <td class="text text-center text-uppercase"><?= $user->nome ?></td>
+                    <td class="text text-center text-uppercase"><?= $user->idt ?></td>
+                    <td class="text text-center text-uppercase"><?= $user->endereco ?></td>
+                    <td class="text text-center text-uppercase"><?= $user->celular ?></td>
+                    <td class="text text-center text-uppercase"><?= $user->fixo ?></td>
+                    <td class="text text-center text-uppercase"><?= $user->perfil ?></td>
+                    <td class="text text-center text-uppercase">
+                        <a href="#" id="btnEdit<?= $user->cd_usuario ?>" cd_usuario="<?= $user->cd_usuario ?>"><img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar usuário" border="0"/></a>
+                        <a class="excluir" id="btnExc<?= $user->cd_usuario ?>" cd_usuario="<?= $user->cd_usuario ?>"><img src="<?= base_url('assets/img/b_excluir.png') ?>" alt="excluir" title="Excluir usuário" border="0"/></a>
+                    </td>
+                </tr>
 
-            <?php
-            $i++;
-        }
+                <?php
+                $i++;
+            }
         ?>
     </table>
 </div>
@@ -98,6 +98,15 @@
                             var msg = 'Usuário excluído com sucesso!';
                             $('#sucessoTexto').html(msg);
                             $('#sucesso').modal('show');
+
+                        } else if (data === '404') {
+                            $('#erro').on('hidden.bs.modal', function(e) {
+                                window.location.reload();
+                            });
+                            $('#excluir').modal('hide');
+                            var msg = 'ERRO ao excluir o usuário. <br>Serviço de Controle de Acesso Indisponível.<br> Tente mais tarde.';
+                            $('#erroTexto').html(msg);
+                            $('#erro').modal('show');
 
                         } else {
 

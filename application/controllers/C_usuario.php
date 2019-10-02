@@ -81,6 +81,11 @@
                     echo $retorno;
                 }
             } else {
+                //verifica se o sca esta ativo
+                if (!checarStatusMs(M_url_ms::sca)) {
+                    $status_ms = M_http_code::not_found;
+                }
+                $dados['status_ms'] = isset($status_ms) ? $status_ms : "";
                 $dados['titulo'] = "teste ajax";
                 $this->showAjax('inc/v_inc_usuario_adicionar', $dados);
             }
@@ -108,6 +113,11 @@
                 }
             } else {
                 $cd_usuario = (int) $this->input->post('cd_usuario');
+                //verifica se o sca esta ativo
+                if (!checarStatusMs(M_url_ms::sca)) {
+                    $status_ms = M_http_code::not_found;
+                }
+                $dados['status_ms'] = isset($status_ms) ? $status_ms : "";
 
                 //pega o objeto usuario com os dados pelo codigo do usuario
                 $dados['usuario'] = $this->m_usuario->getUsuarioById($cd_usuario);
@@ -123,13 +133,19 @@
         }
 
         public function excluirUsuario() {
-            $cd_usuario = $this->security->xss_clean($this->input->post('cd_usuario'));
-
-            $retorno = $this->m_usuario->excluirUsuario($cd_usuario);
-            if ($retorno) {
-                echo 1;
+            //verifica se o sca esta ativo
+            if (!checarStatusMs(M_url_ms::sca)) {
+                $status_ms = M_http_code::not_found;
+                echo $status_ms;
             } else {
-                echo 0;
+                $cd_usuario = $this->security->xss_clean($this->input->post('cd_usuario'));
+
+                $retorno = $this->m_usuario->excluirUsuario($cd_usuario);
+                if ($retorno) {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
             }
         }
 
@@ -152,6 +168,12 @@
                     echo 0;
                 }
             } else {
+                // verifica se o sca esta ativo
+                if (!checarStatusMs(M_url_ms::sca)) {
+                    $status_ms = M_http_code::not_found;
+                }
+
+                $dados['status_ms'] = isset($status_ms) ? $status_ms : "";
                 $dados['titulo'] = "Trocar senha";
                 $this->showAjax('inc/v_inc_usuario_senha', $dados);
             }

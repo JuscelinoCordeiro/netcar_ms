@@ -4,65 +4,73 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h2 class="titulo">Cadastrar usuário</h2>
-        <form id="form_cad_usuario" action="" method="post">
-            <legend class="text-black hr3">Dados do novo usuário</legend>
-            <div class="form-group">
-                <label class="control-label">Nome</label>
-                <input class="form-control text text-uppercase" type="text" name="nome" required />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Identidade</label>
-                <input class="form-control text text-uppercase" type="text" name="idt" required />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Endereço</label>
-                <input class="form-control text text-uppercase" type="text" name="endereco" required />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Celular</label>
-                <input id="celular" class="form-control text text-uppercase" type="text" name="celular" required />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Tel Fixo</label>
-                <input id="telFixo" class="form-control text text-uppercase" type="text" name="fixo" required />
-            </div>
-            <?php
-                if (validaPerfil(array(M_perfil::Gerente), $this->session->userdata('dados_usuario')->nivel)) {
-                    ?>
+        <?php
+            if ($status_ms == M_http_code::not_found) {
+                echo '<br><h4 class="text text-center text-danger"><b>Serviço de Controle de Acesso Indisponível. <br>Tente mais tarde.</b></h4><br>';
+            } else {
+                ?>
+                <form id="form_cad_usuario" action="" method="post">
+                    <legend class="text-black hr3">Dados do novo usuário</legend>
                     <div class="form-group">
-                        <label for="Perfil" class="control-label">Perfil</label>
-                        <select class="form-control  text text-uppercase" name="nivel"  required>
-                            <option value="">Selecione uma opção</option>
-                            <option value="10">CLIENTE</option>
-                            <option value="1">OPERADOR</option>
-                            <option value="2">FINANCEIRO</option>
-                            <option value="3">GERENTE</option>
-                        </select>
+                        <label class="control-label">Nome</label>
+                        <input class="form-control text text-uppercase" type="text" name="nome" required />
                     </div>
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label class="control-label">Senha</label>
-                            <span id="dt_agenda">
-                                <div class="controls">
-                                    <input id="senha" class="form-control" type="password" name="senha"/>
-                                </div>
-                            </span>
-                        </div>
-                        <div class="form-group pull-right">
-                            <label class="control-label">Confirme a senha</label>
-                            <span id="dt_agenda2">
-                                <div class="controls">
-                                    <input class="form-control" type="password" name="confirma_senha" />
-                                </div>
-                            </span>
-                        </div>
-                        <div id="senha-status"></div>
+                    <div class="form-group">
+                        <label class="control-label">Identidade</label>
+                        <input class="form-control text text-uppercase" type="text" name="idt" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Endereço</label>
+                        <input class="form-control text text-uppercase" type="text" name="endereco" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Celular</label>
+                        <input id="celular" class="form-control text text-uppercase" type="text" name="celular" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tel Fixo</label>
+                        <input id="telFixo" class="form-control text text-uppercase" type="text" name="fixo" required />
                     </div>
                     <?php
-                }
-            ?>
-            <input type="hidden" name="acao" value="cadastrar"/>
-        </form>
+                    if (validaPerfil(array(M_perfil::Gerente), $this->session->userdata('dados_usuario')->nivel)) {
+                        ?>
+                        <div class="form-group">
+                            <label for="Perfil" class="control-label">Perfil</label>
+                            <select class="form-control  text text-uppercase" name="nivel"  required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="10">CLIENTE</option>
+                                <option value="1">OPERADOR</option>
+                                <option value="2">FINANCEIRO</option>
+                                <option value="3">GERENTE</option>
+                            </select>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label class="control-label">Senha</label>
+                                <span id="dt_agenda">
+                                    <div class="controls">
+                                        <input id="senha" class="form-control" type="password" name="senha"/>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="form-group pull-right">
+                                <label class="control-label">Confirme a senha</label>
+                                <span id="dt_agenda2">
+                                    <div class="controls">
+                                        <input class="form-control" type="password" name="confirma_senha" />
+                                    </div>
+                                </span>
+                            </div>
+                            <div id="senha-status"></div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <input type="hidden" name="acao" value="cadastrar"/>
+                </form>
+                <?php
+            }
+        ?>
     </div>
     <div class="col-md-2"></div>
 </div>

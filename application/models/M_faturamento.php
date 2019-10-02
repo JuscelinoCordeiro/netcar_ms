@@ -53,4 +53,43 @@
             return $this->db->query($sql, array((int) $agendamento->cd_tpveiculo, (int) $agendamento->cd_servico, $agendamento->data, $agendamento->horario, floatval($agendamento->preco)));
         }
 
+        public function getFaturamento($cd_fatura) {
+            $sql = " select * from faturamento where cd_fatura = ?";
+
+            return $this->db->query($sql, $cd_fatura);
+        }
+
+        public function gerarComprovante($faturamento) {
+            //verifica se o microserviço esta ativo
+            if (!checarStatusMs(M_url_ms::comprovante)) {
+                return M_http_code::not_found;
+            }
+
+            $url = M_url_ms::comprovante . "caminho";
+
+            $dados = json_encode(array(
+                'codigo' => $faturamento->getCodigo(),
+                'data' => $faturamento->getData(),
+                'horario' => $faturamento->getHorario(),
+                'servico' => $faturamento->getServico(),
+                'tipo_veiculo' => $faturamento->getTipoVeiculo(),
+                'valor' => $faturamento->getValor(),
+            ));
+            echo '<pre>';
+            print_r($dados);
+            die();
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
+
+            $result = curl_exec($ch);
+            return $result;
+        }
+
     }

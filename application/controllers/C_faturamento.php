@@ -9,10 +9,12 @@
             $this->isLogado();
             $this->load->model('m_faturamento');
             $this->load->model('m_veiculo');
+            $this->load->model('m_servico');
+            $this->loadEntidade('Faturamento');
         }
 
         public function listarFaturamentoDiario() {
-            //a variavel faturamento recebe um array contendo um arraylist de objetos de faturamento e
+            // a variavel faturamento recebe um array contendo um arraylist de objetos de faturamento e
             // a soma dos faturamentos
             $faturamento = $this->m_faturamento->listarFaturamentoDiario();
 
@@ -59,6 +61,31 @@
             } else {
                 $this->showAjax('inc/v_inc_faturamento_pesquisar');
             }
+        }
+
+        public function imprimirFatura() {
+            $cd_fatura = $this->security->xss_clean($this->input->post('cd_fatura'));
+
+            $fatura = $this->m_faturamento->getFaturamento($cd_fatura)->row();
+//
+            $faturamento = new Faturamento();
+            $faturamento->setCodigo($fatura->cd_fatura);
+            $faturamento->setData($fatura->data);
+            $faturamento->setHorario($fatura->horario);
+
+            $servico = $this->m_servico->getServicoById($fatura->cd_servico)->row()->servico;
+            $faturamento->setServico($servico);
+
+            $tipo_veiculo = $this->m_veiculo->getVeiculoById($fatura->cd_tpveiculo);
+            $faturamento->setTipoVeiculo(($tipo_veiculo !== M_http_code::not_found) ? $tipo_veiculo->tipo : "Não discriminado.");
+            $faturamento->setValor('R$ ' . $fatura->valor . ',00');
+
+
+            $retorno = $this->m_faturamento->gerarComprovante($faturamento);
+//            print_r($fatura);
+            echo '<pre>';
+            print_r($faturamento);
+            die();
         }
 
     }

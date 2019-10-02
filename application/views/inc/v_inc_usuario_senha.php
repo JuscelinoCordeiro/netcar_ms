@@ -4,23 +4,31 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h2 class="titulo"><?= $titulo ?></h2>
-        <form id="form_edit_usuario" action="" method="post">
-            <legend class="text-black hr3">Dados do usuário</legend>
-            <div class="form-group">
-                <label class="control-label">Senha atual</label>
-                <input class="form-control text text-uppercase" type="password" name="senha_atual" required/>
+        <?php
+            if ($status_ms == M_http_code::not_found) {
+                echo '<br><h4 class="text text-center text-danger"><b>Serviço de Controle de Acesso Indisponível. <br>Tente mais tarde.</b></h4><br>';
+            } else {
+                ?>
+                <form id="form_edit_usuario" action="" method="post">
+                    <legend class="text-black hr3">Dados do usuário</legend>
+                    <div class="form-group">
+                        <label class="control-label">Senha atual</label>
+                        <input class="form-control text text-uppercase" type="password" name="senha_atual" required/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nova senha</label>
+                        <input class="form-control text text-uppercase" type="password" name="senha_nova" required/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Confirme a nova senha</label>
+                        <input class="form-control text text-uppercase" type="password" name="senha_confirma" required/>
+                    </div>
+                    <input type="hidden" name="acao" value="trocar_senha"/>
+                </form>
             </div>
-            <div class="form-group">
-                <label class="control-label">Nova senha</label>
-                <input class="form-control text text-uppercase" type="password" name="senha_nova" required/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Confirme a nova senha</label>
-                <input class="form-control text text-uppercase" type="password" name="senha_confirma" required/>
-            </div>
-            <input type="hidden" name="acao" value="trocar_senha"/>
-        </form>
-    </div>
+            <?php
+        }
+    ?>
     <div class="col-md-2"></div>
 </div>
 

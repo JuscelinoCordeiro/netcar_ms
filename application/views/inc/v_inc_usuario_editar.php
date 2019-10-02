@@ -4,56 +4,64 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h2 class="titulo"><?= $titulo ?></h2>
-        <form id="form_edit_usuario" action="" method="post">
-            <legend class="text-black hr3">Dados do usuário</legend>
-            <div class="form-group">
-                <label class="control-label">Nome</label>
-                <input class="form-control text text-uppercase" type="text" name="nome" required value="<?= $usuario['nome'] ?>"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Identidade</label>
-                <input class="form-control text text-uppercase" type="text" name="idt" required value="<?= $usuario['idt'] ?>"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Endereço</label>
-                <input class="form-control text text-uppercase" type="text" name="endereco" required value="<?= $usuario['endereco'] ?>"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Celular</label>
-                <input class="form-control text text-uppercase" type="text" name="celular" required value="<?= $usuario['celular'] ?>"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Tel Fixo</label>
-                <input class="form-control text text-uppercase" type="text" name="fixo" required value="<?= $usuario['fixo'] ?>"/>
-            </div>
-            <?php
-                if (validaPerfil(array(M_perfil::Gerente), $this->session->userdata('dados_usuario')->nivel)) {
-                    ?>
+        <?php
+            if ($status_ms == M_http_code::not_found) {
+                echo '<br><h4 class="text text-center text-danger"><b>Serviço de Controle de Acesso Indisponível. <br>Tente mais tarde.</b></h4><br>';
+            } else {
+                ?>
+                <form id="form_edit_usuario" action="" method="post">
+                    <legend class="text-black hr3">Dados do usuário</legend>
                     <div class="form-group">
-                        <label for="Perfil" class="control-label">Perfil</label>
-                        <select class="form-control" name="nivel"  required>
-                            <option value="<?= $usuario['nivel'] ?>">
-                                <?php
-                                echo $usuario['nivel'] == "10" ? "CLIENTE" : "";
-                                echo $usuario['nivel'] == "1" ? "OPERADOR" : "";
-                                echo $usuario['nivel'] == "2" ? "FINANCEIRO" : "";
-                                echo $usuario['nivel'] == "3" ? "GERENTE" : "";
-                                ?>
-                            </option>
-                            <option value="10">Cliente</option>
-                            <option value="1">Operador</option>
-                            <option value="2">Financeiro</option>
-                            <option value="3">Gerente</option>
-                        </select>
+                        <label class="control-label">Nome</label>
+                        <input class="form-control text text-uppercase" type="text" name="nome" required value="<?= $usuario['nome'] ?>"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Identidade</label>
+                        <input class="form-control text text-uppercase" type="text" name="idt" required value="<?= $usuario['idt'] ?>"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Endereço</label>
+                        <input class="form-control text text-uppercase" type="text" name="endereco" required value="<?= $usuario['endereco'] ?>"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Celular</label>
+                        <input class="form-control text text-uppercase" type="text" name="celular" required value="<?= $usuario['celular'] ?>"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tel Fixo</label>
+                        <input class="form-control text text-uppercase" type="text" name="fixo" required value="<?= $usuario['fixo'] ?>"/>
                     </div>
                     <?php
-                }
-            ?>
+                    if (validaPerfil(array(M_perfil::Gerente), $this->session->userdata('dados_usuario')->nivel)) {
+                        ?>
+                        <div class="form-group">
+                            <label for="Perfil" class="control-label">Perfil</label>
+                            <select class="form-control" name="nivel"  required>
+                                <option value="<?= $usuario['nivel'] ?>">
+                                    <?php
+                                    echo $usuario['nivel'] == "10" ? "CLIENTE" : "";
+                                    echo $usuario['nivel'] == "1" ? "OPERADOR" : "";
+                                    echo $usuario['nivel'] == "2" ? "FINANCEIRO" : "";
+                                    echo $usuario['nivel'] == "3" ? "GERENTE" : "";
+                                    ?>
+                                </option>
+                                <option value="10">Cliente</option>
+                                <option value="1">Operador</option>
+                                <option value="2">Financeiro</option>
+                                <option value="3">Gerente</option>
+                            </select>
+                        </div>
+                        <?php
+                    }
+                    ?>
 
 
-            <input type="hidden" name="acao" value="editar"/>
-            <input type="hidden" name="cd_usuario" value="<?= $usuario['cd_usuario'] ?>"/>
-        </form>
+                    <input type="hidden" name="acao" value="editar"/>
+                    <input type="hidden" name="cd_usuario" value="<?= $usuario['cd_usuario'] ?>"/>
+                </form>
+                <?php
+            }
+        ?>
     </div>
     <div class="col-md-2"></div>
 </div>
