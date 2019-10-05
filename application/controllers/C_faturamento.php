@@ -88,4 +88,26 @@
             die();
         }
 
+        public function imprimirFaturaPdf() {
+//            $cd_fatura = $this->security->xss_clean($this->input->post('cd_fatura'));
+            $dados = $this->security->xss_clean($this->input->post('conteudo'));
+
+            $url = 'http://127.0.0.1/mpdf/index.php';
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+//                'Content-Type: application/json',
+//                'Content-Length: ' . strlen($dados))
+//            );
+            $result = curl_exec($ch);
+            echo $result;
+
+//            echo '<pre>';
+////            print_r($conteudo);
+//            die();
+        }
+
     }

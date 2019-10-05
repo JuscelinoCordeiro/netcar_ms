@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row fatura">
     <?php
         if ($faturamento) {
             ?>
@@ -25,12 +25,13 @@
                         <td><?= $i ?></td>
                         <td><?= date('d/m/Y', strtotime($fatura->data)) ?></td>
                         <td><?= $fatura->horario ?></td>
-                        <td><?= $fatura->servico ?></td>
-                        <td><?= $fatura->tipo ?></td>
-                        <td><?= "R$ " . $fatura->valor . ",00" ?></td>
-                        <td>
-                            <a href="#" id="btnRel<?= $fatura->cd_fatura ?>" cd_fatura="<?= $fatura->cd_fatura ?>"><img src="<?= base_url('assets/img/b_pdf.png') ?>" height="20" alt="imprimir_relatorio" title="Imprimir Fatura" border="0"/></a>
-                        </td>
+                    <a href="v_faturamento_diario.php"></a>
+                    <td><?= $fatura->servico ?></td>
+                    <td><?= $fatura->tipo ?></td>
+                    <td><?= "R$ " . $fatura->valor . ",00" ?></td>
+                    <td>
+                        <a href="#" id="btnRel<?= $fatura->cd_fatura ?>" cd_fatura="<?= $fatura->cd_fatura ?>"><img src="<?= base_url('assets/img/b_pdf.png') ?>" height="20" alt="imprimir_relatorio" title="Imprimir Fatura" border="0"/></a>
+                    </td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -50,17 +51,20 @@
 </div>
 
 <script>
-    // EDITAR O SERVIÇO
+    // imprimir comprovante
     $("a[id^=btnRel]").click(function(e) {
-        cd_fatura = $(this).attr('cd_fatura');
-
+        var conteudo = document.documentElement.innerHTML;
+//        conteudo = $(.fatura).text()();
+//        alert(htmlAgora);
+//        alert('chamando');
+//        exit();
         $.ajax({
             type: 'POST',
-            url: '/netcar/c_faturamento/imprimirFatura',
+            url: '/netcar/c_faturamento/imprimirFaturaPdf',
 //            contentType: 'application/json',
             cache: false,
             data: {
-                cd_fatura: cd_fatura
+                conteudo: conteudo
             },
             beforeSend: function(xhr) {
                 xhr.overrideMimeType("text/plain; charset=UTF-8");
@@ -78,6 +82,38 @@
         });
         e.preventDefault();
     });
+    //=======================================
+//    // imprimir comprovante
+//    $("a[id^=btnRel]").click(function(e) {
+//        cd_fatura = $(this).attr('cd_fatura');
+//
+//        $.ajax({
+//            type: 'POST',
+//            url: '/netcar/c_faturamento/imprimirFatura',
+////            contentType: 'application/json',
+//            cache: false,
+//            data: {
+//                cd_fatura: cd_fatura
+//            },
+//            beforeSend: function(xhr) {
+//                xhr.overrideMimeType("text/plain; charset=UTF-8");
+//            },
+//            complete: function() {
+//            },
+//            success: function(data) {
+//                $("#modalTexto").html(data);
+//                $("#modal").modal('show');
+//            },
+//            error: function() {
+//                $("#erroTexto").html("erro");
+//                $("#erro").modal('show');
+//            }
+//        });
+//        e.preventDefault();
+//    });
+
+
+    //=======================================
 //
 //
 //    //EXCLUIR O SERVIÇO
