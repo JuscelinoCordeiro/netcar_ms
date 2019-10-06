@@ -88,26 +88,53 @@
             die();
         }
 
-        public function imprimirFaturaPdf() {
+        public function gerarComprovante() {
 //            $cd_fatura = $this->security->xss_clean($this->input->post('cd_fatura'));
             $dados = $this->security->xss_clean($this->input->post('conteudo'));
-
+//            print_r($dados);
+//            die();
             $url = 'http://127.0.0.1/mpdf/index.php';
+            $dados = json_encode(array('conteudo' => $dados));
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-//                'Content-Type: application/json',
-//                'Content-Length: ' . strlen($dados))
-//            );
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
+
             $result = curl_exec($ch);
             echo $result;
-
 //            echo '<pre>';
 ////            print_r($conteudo);
 //            die();
+        }
+
+        public function imprimirFaturamento() {
+//            $cd_fatura = $this->security->xss_clean($this->input->post('cd_fatura'));
+            $dados = '<table>';
+            $dados .= $this->security->xss_clean($this->input->post('conteudo'));
+            $dados .= '</table>';
+//            print_r($dados);
+//            die();
+
+            $url = 'http://127.0.0.1/ms-pdf/index.php';
+            $dados = json_encode(array('conteudo' => $dados));
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
+
+            echo curl_exec($ch);
+            $result = curl_exec($ch);
+//            return $result;
         }
 
     }

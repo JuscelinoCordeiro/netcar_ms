@@ -4,7 +4,7 @@
             ?>
             <div class="col-md-2"></div>
             <div class="col-md-8"><h3 class="titulo text text-center">Faturamento do dia</h3></div>
-            <table class="tabela table table-bordered table-condensed table-hover">
+            <table id="tbl-faturamento"class="tabela table table-bordered table-condensed table-hover">
                 <thead>
                     <tr class="text text-center text-uppercase">
                         <th>ORD</th>
@@ -13,7 +13,7 @@
                         <th>SERVIÇO</th>
                         <th>TIPO DE VEÍCULO</th>
                         <th>VALOR</th>
-                        <th>AÇÃO</th>
+                        <th class="btn-acao">AÇÃO</th>
                     </tr>
                 </thead>
                 <?php
@@ -21,23 +21,22 @@
                 foreach ($faturamento as $fatura) {
                     $i = $i + 1;
                     ?>
-                    <tr class="text text-center text-uppercase">
-                        <td><?= $i ?></td>
-                        <td><?= date('d/m/Y', strtotime($fatura->data)) ?></td>
-                        <td><?= $fatura->horario ?></td>
-                    <a href="v_faturamento_diario.php"></a>
-                    <td><?= $fatura->servico ?></td>
-                    <td><?= $fatura->tipo ?></td>
-                    <td><?= "R$ " . $fatura->valor . ",00" ?></td>
-                    <td>
-                        <a href="#" id="btnRel<?= $fatura->cd_fatura ?>" cd_fatura="<?= $fatura->cd_fatura ?>"><img src="<?= base_url('assets/img/b_pdf.png') ?>" height="20" alt="imprimir_relatorio" title="Imprimir Fatura" border="0"/></a>
-                    </td>
+                    <tr id ="<?= $i ?>"class="text text-center text-uppercase">
+                        <td class="dados"><?= $i ?></td>
+                        <td class="dados"><?= date('d/m/Y', strtotime($fatura->data)) ?></td>
+                        <td class="dados"><?= $fatura->horario ?></td>
+                        <td class="dados"><?= $fatura->servico ?></td>
+                        <td class="dados"><?= $fatura->tipo ?></td>
+                        <td class="dados"><?= "R$ " . $fatura->valor . ",00" ?></td>
+                        <td class="btn-acao">
+                            <a href="#" id="btnRel<?= $fatura->cd_fatura ?>" cd_linha="<?= $i ?>" cd_fatura="<?= $fatura->cd_fatura ?>"><img src="<?= base_url('assets/img/b_pdf.png') ?>" height="20" alt="imprimir_relatorio" title="Imprimir Fatura" border="0"/></a>
+                        </td>
                     </tr>
                 <?php } ?>
-                <tr>
+                <tr class="text text-center">
                     <td colspan="5" class="text text-center"><b>TOTAL</b></td>
                     <td class="text text-center"><b><?= "R$ " . $total . ",00" ?></b></td>
-                    <td class="text text-center">
+                    <td class="text text-center btn-acao">
                         <a href="#" id="btnTotal"><img src="<?= base_url('assets/img/b_pdf.png') ?>" height="20" alt="imprimir_relatorio" title="Imprimir Faturamento Total" border="0"/></a>
                     </td>
                 </tr>
@@ -53,14 +52,17 @@
 <script>
     // imprimir comprovante
     $("a[id^=btnRel]").click(function(e) {
-        var conteudo = document.documentElement.innerHTML;
+//        var conteudo = document.documentElement.innerHTML;
 //        conteudo = $(.fatura).text()();
-//        alert(htmlAgora);
+        id = $(this).attr('cd_linha');
+//        alert('id = ' + id);
+        conteudo = document.getElementById(id).innerHTML;
+//        alert('conteudo = ' + conteudo);
 //        alert('chamando');
 //        exit();
         $.ajax({
             type: 'POST',
-            url: '/netcar/c_faturamento/imprimirFaturaPdf',
+            url: '/netcar/c_faturamento/gerarComprovante',
 //            contentType: 'application/json',
             cache: false,
             data: {
@@ -82,6 +84,41 @@
         });
         e.preventDefault();
     });
+    //=======================================
+    // imprimir faturamento
+    $("a[id^=btnTotal]").click(function(e) {
+//        $(this).attr('cd_fatura');
+        $("#tbl-faturamento").remove(".btn-acao");
+        conteudo = document.getElementById('tbl-faturamento').innerHTML;
+//        alert(conteudo);
+//        exit();
+        $.ajax({
+            type: 'POST',
+            url: '/netcar/c_faturamento/imprimirFaturamento',
+//            contentType: 'application/json',
+            cache: false,
+            data: {
+                conteudo: conteudo
+            },
+            beforeSend: function(xhr) {
+                xhr.overrideMimeType("text/plain; charset=UTF-8");
+            },
+            complete: function() {
+            },
+            success: function(data) {
+                $("#modalTexto").html(data);
+                $("#modal").modal('show');
+            },
+            error: function() {
+                $("#erroTexto").html("erro");
+                $("#erro").modal('show');
+            }
+        });
+        e.preventDefault();
+    });
+
+
+    //=======================================
     //=======================================
 //    // imprimir comprovante
 //    $("a[id^=btnRel]").click(function(e) {
