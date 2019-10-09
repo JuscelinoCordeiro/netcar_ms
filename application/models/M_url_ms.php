@@ -14,6 +14,6 @@
         const sca = 'http://127.0.0.1:8001';
 //        const sca = 'http://127.0.0.1:8002';
 //        const sca = 'http://127.0.0.1/ms-sca';
-        const comprovante = 'http://127.0.0.1/ms-sca';
+        const pdf = 'http://127.0.0.1/ms-relatorio';
 
     }

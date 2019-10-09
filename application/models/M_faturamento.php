@@ -61,23 +61,41 @@
 
         public function gerarComprovante($faturamento) {
             //verifica se o microserviço esta ativo
-            if (!checarStatusMs(M_url_ms::comprovante)) {
+            if (!checarStatusMs(M_url_ms::pdf)) {
                 return M_http_code::not_found;
             }
 
-            $url = M_url_ms::comprovante . "caminho";
+            $url = M_url_ms::pdf . "/index.php";
 
-            $dados = json_encode(array(
-                'codigo' => $faturamento->getCodigo(),
-                'data' => $faturamento->getData(),
-                'horario' => $faturamento->getHorario(),
-                'servico' => $faturamento->getServico(),
-                'tipo_veiculo' => $faturamento->getTipoVeiculo(),
-                'valor' => $faturamento->getValor(),
-            ));
-            echo '<pre>';
-            print_r($dados);
-            die();
+            $dados = '<h3>Comprovante de Execução de Serviço</h3><br>';
+            $dados .= '<table class="table table-bordered table-condensed">';
+            $dados .= '<thead>';
+            $dados .= '<tr>';
+            $dados .= '<th>Código</th>';
+            $dados .= '<th>Data</th>';
+            $dados .= '<th>Horário</th>';
+            $dados .= '<th>Serviço</th>';
+            $dados .= '<th>Tipo de Veículo</th>';
+            $dados .= '<th>Valor</th>';
+            $dados .= '</tr>';
+            $dados .= '</thead>';
+            $dados .= '<tbody>';
+            $dados .= '<tr>';
+            $dados .= '<td>' . $faturamento->getCodigo() . '</td>';
+            $dados .= '<td>' . $faturamento->getData() . '</td>';
+            $dados .= '<td>' . $faturamento->getHorario() . '</td>';
+            $dados .= '<td>' . $faturamento->getServico() . '</td>';
+            $dados .= '<td>' . $faturamento->getTipoVeiculo() . '</td>';
+            $dados .= '<td>' . $faturamento->getValor() . '</td>';
+            $dados .= '</tbody>';
+            $dados .= '</table>';
+
+//            $usuario = $this->session->userdata('dados_usuario');
+//            $rodape = "Impresso por: " . utf8_encode($usuario->nome) . "  - Identidade: $usuario->idt | {DATE d/m/y H:i}|{PAGENO}/{nb}";
+            $rodape = '';
+            $dados .= '<br><br>' . $rodape;
+
+            $dados = json_encode(array('conteudo' => $dados));
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
@@ -87,6 +105,29 @@
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($dados))
             );
+
+//            echo curl_exec($ch);
+//            $result = curl_exec($ch);
+//            $dados = json_encode(array(
+//                'codigo' => $faturamento->getCodigo(),
+//                'data' => $faturamento->getData(),
+//                'horario' => $faturamento->getHorario(),
+//                'servico' => $faturamento->getServico(),
+//                'tipo_veiculo' => $faturamento->getTipoVeiculo(),
+//                'valor' => $faturamento->getValor(),
+//            ));
+//            echo '<pre>';
+//            print_r($dados);
+//            die();
+//            $ch = curl_init($url);
+//            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+//            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+//                'Content-Type: application/json',
+//                'Content-Length: ' . strlen($dados))
+//            );
 
             $result = curl_exec($ch);
             return $result;
