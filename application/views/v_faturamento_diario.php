@@ -55,19 +55,13 @@
 </div>
 
 <script>
+    //========================================
     // imprimir comprovante
     $("a[id^=btnRel]").click(function(e) {
         cd_fatura = $(this).attr('cd_fatura');
-//        $('.btn-acao').remove();
-////        conteudo = document.getElementById(id).innerHTML();
-//        conteudo = $(this).parent('tr').html();
-//        console.log(conteudo);
-//        alert(conteudo);
-//        exit();
         $.ajax({
             type: 'POST',
             url: '/netcar/c_faturamento/gerarComprovante',
-//            contentType: 'application/json',
             cache: false,
             data: {
                 cd_fatura: cd_fatura
@@ -91,6 +85,7 @@
         });
         e.preventDefault();
     });
+
     //=======================================
     // imprimir faturamento
     $("a[id^=btnTotal]").click(function(e) {
@@ -100,7 +95,6 @@
         $.ajax({
             type: 'POST',
             url: '/netcar/c_faturamento/imprimirFaturamento',
-//            contentType: 'application/json',
             cache: false,
             data: {
                 conteudo: conteudo,
@@ -125,96 +119,5 @@
         });
         e.preventDefault();
     });
-
-
-    //=======================================
-    //=======================================
-//    // imprimir comprovante
-//    $("a[id^=btnRel]").click(function(e) {
-//        cd_fatura = $(this).attr('cd_fatura');
-//
-//        $.ajax({
-//            type: 'POST',
-//            url: '/netcar/c_faturamento/imprimirFatura',
-////            contentType: 'application/json',
-//            cache: false,
-//            data: {
-//                cd_fatura: cd_fatura
-//            },
-//            beforeSend: function(xhr) {
-//                xhr.overrideMimeType("text/plain; charset=UTF-8");
-//            },
-//            complete: function() {
-//            },
-//            success: function(data) {
-//                $("#modalTexto").html(data);
-//                $("#modal").modal('show');
-//            },
-//            error: function() {
-//                $("#erroTexto").html("erro");
-//                $("#erro").modal('show');
-//            }
-//        });
-//        e.preventDefault();
-//    });
-
-
-    //=======================================
-//
-//
-//    //EXCLUIR O SERVIÇO
-//    $('a[id^=btnExc]').click(function() {
-//
-//        id = $(this).attr('id_veiculo');
-//
-//        $('#excluir').on('shown.bs.modal', function(e) {
-//
-//            $('#excluirModal').click(function() {
-//                $.ajax({
-//                    type: "DELETE",
-//                    url: '/netcar/c_veiculo/excluirVeiculo',
-//                    contentType: 'application/json',
-//                    cache: false,
-//                    data: {id: id},
-//                    beforeSend: function(xhr) {
-//                        xhr.overrideMimeType("text/plain; charset=UTF-8");
-//                    },
-//                    complete: function() {
-//                    },
-//                    success: function(data) {
-//                        if (data === '1') {
-//
-//                            $('#sucesso').on('hidden.bs.modal', function(e) {
-//                                window.location.reload();
-//                            });
-//                            $('#excluir').modal('hide');
-//                            var msg = 'Veículo excluído com sucesso!';
-//                            $('#sucessoTexto').html(msg);
-//                            $('#sucesso').modal('show');
-//
-//                        } else {
-//
-//                            $('#erro').on('hidden.bs.modal', function(e) {
-//                                window.location.reload();
-//                            });
-//                            $('#excluir').modal('hide');
-//                            var msg = 'ERRO ao excluir o veículo.';
-//                            $('#erroTexto').html(msg);
-//                            $('#erro').modal('show');
-//                        }
-//                    },
-//                    error: function() {
-//                        $("#erro").html('Ocorreu um erro no sistema.');
-//                        $("#erro").dialog("open");
-//                    }
-//                });
-//            });
-//
-//        });
-//
-//        $("#excluirTexto").html('<b>Confirma a exclusão do veículo?</b>');
-//        $("#excluir").modal("show");
-//
-//    });
 
 </script>

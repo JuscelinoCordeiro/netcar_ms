@@ -81,44 +81,58 @@
             $faturamento->setValor('R$ ' . $fatura->valor . ',00');
 
 
-            $retorno = $this->m_faturamento->gerarComprovante($faturamento);
-
-            $arquivo['arquivo'] = 'http://127.0.0.1/ms-relatorio' . $retorno;
-
-            $this->load->view('v_relatorio_pdf', $arquivo);
-//            print_r($fatura);
-//            echo '<pre>';
-//            print_r($faturamento);
-//            die();
+            $retorno = json_decode($this->m_faturamento->gerarComprovante($faturamento));
+//            $retorno = '404';
+//            $retorno->status = 0;
+//            $retorno->dados = '';
+            if ($retorno == M_http_code::not_found) {
+                $msg['msg'] = 'Serviço Indisponível. Tente mais tarde.';
+                $this->load->view('errors/v_erro', $msg);
+            } else {
+                if (($retorno->status == '1') && $retorno->dados != 'erro') {
+                    $arquivo['arquivo'] = 'http://127.0.0.1/ms-relatorio' . $retorno->dados;
+                    $this->load->view('v_relatorio_pdf', $arquivo);
+                } else {
+                    $msg['msg'] = 'ERRO! Não foi possivel gerar o arquivo.';
+                    $this->load->view('errors/v_erro', $msg);
+                }
+            }
         }
 
         public function imprimirFaturamento() {
-
+            $hora_relatorio = date("d-m-Y_H:i:s");
             $titulo = strtoupper($this->security->xss_clean($this->input->post('titulo')));
             $dados = '<h3>' . $titulo . '</h3><br>';
-            $dados .= '<table class="table table-bordered table-condensed">';
+            $dados .= '<table border="1" class="table table-bordered table-condensed">';
             $dados .= $this->security->xss_clean($this->input->post('conteudo'));
             $dados .= '</table>';
 
             $usuario = $this->session->userdata('dados_usuario');
-            $rodape = "Impresso por: " . utf8_encode($usuario->nome) . "  - Identidade: $usuario->idt | {DATE d/m/y H:i}|{PAGENO}/{nb}";
+//            $rodape = "Impresso por: " . utf8_encode($usuario->nome) . "  - Identidade: $usuario->idt | {DATE d/m/y H:i}|{PAGENO}/{nb}";
+            $rodape = "Impresso por: " . utf8_encode($usuario->nome) . "  - Identidade: $usuario->idt em " . $hora_relatorio;
             $dados .= '<br><br>' . $rodape;
 
-            $url = 'http://127.0.0.1/ms-relatorio/index.php';
-            $dados = json_encode(array('conteudo' => $dados));
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($dados))
-            );
+            $retorno = json_decode($this->m_faturamento->imprimirFaturamento($dados));
 
-//            echo curl_exec($ch);
-            $result = curl_exec($ch);
+//            $retorno = '404';
+//            $retorno->status = 0;
+//            $retorno->dados = '';
+            if ($retorno == M_http_code::not_found) {
+                $msg['msg'] = 'Serviço Indisponível. Tente mais tarde.';
+                $this->load->view('errors/v_erro', $msg);
+            } else {
+                if (($retorno->status == '1') && $retorno->dados != 'erro') {
+                    $arquivo['arquivo'] = M_url_ms::pdf . '/' . $retorno->dados;
+                    $this->load->view('v_relatorio_pdf', $arquivo);
+                } else {
+                    $msg['msg'] = 'ERRO! Não foi possivel gerar o arquivo.';
+                    $this->load->view('errors/v_erro', $msg);
+                }
+            }
 
+//            $arquivo['arquivo'] = 'http://127.0.0.1/ms-relatorio' . $result;
+//
+//            $this->load->view('v_relatorio_pdf', $arquivo);
 //            print_r($result);
 //            die('xxx');
 //            $time = date("d-m-Y_H:i:s");
@@ -133,36 +147,6 @@
 //
 //            fclose($file);
 //            echo $result;
-
-            $arquivo['arquivo'] = 'http://127.0.0.1/ms-relatorio' . $result;
-
-            $this->load->view('v_relatorio_pdf', $arquivo);
         }
 
-        //===============================================
-//               public function gerarComprovante() {
-////            $cd_fatura = $this->security->xss_clean($this->input->post('cd_fatura'));
-//            $dados = $this->security->xss_clean($this->input->post('conteudo'));
-////            print_r($dados);
-////            die();
-//            $url = 'http://127.0.0.1/ms-relatorio/index.php';
-//            $dados = json_encode(array('conteudo' => $dados));
-//            $ch = curl_init($url);
-//            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-//            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
-//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-//                'Content-Type: application/json',
-//                'Content-Length: ' . strlen($dados))
-//            );
-//
-//            $result = curl_exec($ch);
-//            $dados['conteudo'] = $result;
-//            $this->load->view('v_relatorio_pdf', $dados);
-////            echo $result;
-////            echo '<pre>';
-//////            print_r($conteudo);
-////            die();
-//        }
     }

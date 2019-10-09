@@ -68,7 +68,7 @@
             $url = M_url_ms::pdf . "/index.php";
 
             $dados = '<h3>Comprovante de Execução de Serviço</h3><br>';
-            $dados .= '<table class="table table-bordered table-condensed">';
+            $dados .= '<table border="1" class="table table-bordered table-condensed">';
             $dados .= '<thead>';
             $dados .= '<tr>';
             $dados .= '<th>Código</th>';
@@ -106,28 +106,28 @@
                 'Content-Length: ' . strlen($dados))
             );
 
-//            echo curl_exec($ch);
-//            $result = curl_exec($ch);
-//            $dados = json_encode(array(
-//                'codigo' => $faturamento->getCodigo(),
-//                'data' => $faturamento->getData(),
-//                'horario' => $faturamento->getHorario(),
-//                'servico' => $faturamento->getServico(),
-//                'tipo_veiculo' => $faturamento->getTipoVeiculo(),
-//                'valor' => $faturamento->getValor(),
-//            ));
-//            echo '<pre>';
-//            print_r($dados);
-//            die();
-//            $ch = curl_init($url);
-//            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-//            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
-//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-//                'Content-Type: application/json',
-//                'Content-Length: ' . strlen($dados))
-//            );
+            $result = curl_exec($ch);
+            return $result;
+        }
+
+        public function imprimirFaturamento($dados) {
+            //verifica se o microserviço esta ativo
+            if (!checarStatusMs(M_url_ms::pdf)) {
+                return M_http_code::not_found;
+            }
+
+            $url = M_url_ms::pdf . "/index.php";
+
+            $dados = json_encode(array('conteudo' => $dados));
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dados))
+            );
 
             $result = curl_exec($ch);
             return $result;
