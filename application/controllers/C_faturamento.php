@@ -81,6 +81,7 @@
             $faturamento->setValor('R$ ' . $fatura->valor . ',00');
 
 
+
             $retorno = json_decode($this->m_faturamento->gerarComprovante($faturamento));
 //            $retorno = '404';
 //            $retorno->status = 0;
@@ -102,8 +103,10 @@
         public function imprimirFaturamento() {
             $hora_relatorio = date("d-m-Y_H:i:s");
             $titulo = strtoupper($this->security->xss_clean($this->input->post('titulo')));
-            $dados = '<h3>' . $titulo . '</h3><br>';
-            $dados .= '<table border="1" class="table table-bordered table-condensed">';
+            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
+            $dados .= '<h3 align="center">NetCAR - Serviços de Limpeza Automotiva</h3><br>';
+            $dados .= '<h3>' . $titulo . '</h3>';
+            $dados .= '<table border="1" cellspacing="0"cellpadding="2" class="table table-bordered table-condensed"  style="text-align: center">';
             $dados .= $this->security->xss_clean($this->input->post('conteudo'));
             $dados .= '</table>';
 
@@ -129,24 +132,6 @@
                     $this->load->view('errors/v_erro', $msg);
                 }
             }
-
-//            $arquivo['arquivo'] = 'http://127.0.0.1/ms-relatorio' . $result;
-//
-//            $this->load->view('v_relatorio_pdf', $arquivo);
-//            print_r($result);
-//            die('xxx');
-//            $time = date("d-m-Y_H:i:s");
-//            $arquivo = $_SERVER['DOCUMENT_ROOT'] . '/netcar/relatorios/arquivo' . $time . '.pdf';
-//
-////            print_r($_SERVER['DOCUMENT_ROOT'].'/netcar/relatorios');
-////            die();
-//
-//            $file = fopen($arquivo, 'a+');
-//
-//            fwrite($file, $result);
-//
-//            fclose($file);
-//            echo $result;
         }
 
     }

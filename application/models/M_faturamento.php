@@ -66,9 +66,10 @@
             }
 
             $url = M_url_ms::pdf . "/index.php";
-
-            $dados = '<h3>Comprovante de Execução de Serviço</h3><br>';
-            $dados .= '<table border="1" class="table table-bordered table-condensed">';
+            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
+            $dados .= '<h3 align="center">NetCAR - Serviços de Limpeza Automotiva</h3><br>';
+            $dados .= '<h3>Comprovante de Execução de Serviço</h3>';
+            $dados .= '<table border="1"  cellspacing="0"cellpadding="2" class="table table-bordered table-condensed" style="text-align: center">';
             $dados .= '<thead>';
             $dados .= '<tr>';
             $dados .= '<th>Código</th>';
@@ -82,8 +83,8 @@
             $dados .= '<tbody>';
             $dados .= '<tr>';
             $dados .= '<td>' . $faturamento->getCodigo() . '</td>';
-            $dados .= '<td>' . $faturamento->getData() . '</td>';
-            $dados .= '<td>' . $faturamento->getHorario() . '</td>';
+            $dados .= '<td>' . date('d/m/Y', strtotime($faturamento->getData())) . '</td>';
+            $dados .= '<td>' . date('H:i', strtotime($faturamento->getHorario())) . '</td>';
             $dados .= '<td>' . $faturamento->getServico() . '</td>';
             $dados .= '<td>' . $faturamento->getTipoVeiculo() . '</td>';
             $dados .= '<td>' . $faturamento->getValor() . '</td>';
@@ -107,6 +108,8 @@
             );
 
             $result = curl_exec($ch);
+//            print_r($result);
+//            die();
             return $result;
         }
 
@@ -130,6 +133,7 @@
             );
 
             $result = curl_exec($ch);
+
             return $result;
         }
 

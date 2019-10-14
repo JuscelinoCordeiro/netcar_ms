@@ -22,7 +22,8 @@
         <br><br>
         <?php
             if (isset($mensagem) && !empty($mensagem)) {
-                echo '<div class="alert alert-danger">' . $mensagem . '</div>';
+                echo '<div class="alert alert-danger">'
+                . '<p class="text text-center text-danger">' . $mensagem . '</p></div>';
             }
         ?>
     </div>

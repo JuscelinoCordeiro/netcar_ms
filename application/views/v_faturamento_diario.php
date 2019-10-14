@@ -29,7 +29,7 @@
                     <tr id ="<?= $i ?>"class="text text-center text-uppercase">
                         <td class="dados"><?= $i ?></td>
                         <td class="dados"><?= date('d/m/Y', strtotime($fatura->data)) ?></td>
-                        <td class="dados"><?= $fatura->horario ?></td>
+                        <td class="dados"><?= date('H:i', strtotime($fatura->horario)) ?></td>
                         <td class="dados"><?= $fatura->servico ?></td>
                         <td class="dados"><?= $fatura->tipo ?></td>
                         <td class="dados"><?= "R$ " . $fatura->valor . ",00" ?></td>
@@ -92,6 +92,8 @@
         $('.btn-acao').remove();
         conteudo = $('#tbl-faturamento').html();
         titulo = $('.titulo').text();
+//        console.log(titulo);
+//        exit();
         $.ajax({
             type: 'POST',
             url: '/netcar/c_faturamento/imprimirFaturamento',

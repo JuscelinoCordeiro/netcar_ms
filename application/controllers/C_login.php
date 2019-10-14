@@ -14,7 +14,7 @@
         public function index($info = null) {
 
             if (!checarStatusMs(M_url_ms::sca)) {
-                $info['mensagem'] = 'Serviço de autenticaçao indisponível';
+                $info['mensagem'] = 'SERVIÇO DE AUTENTICAÇÃO INDISPONÍVEL';
             }
 
             $info['titulo'] = "NetCar - Login";
@@ -28,8 +28,6 @@
                 redirect('c_inicio/index');
             }
 
-
-
             if (($this->session->userdata('logado') === TRUE)) {
                 redirect('c_inicio/index');
             } else {
@@ -37,21 +35,13 @@
                 $senha = $this->security->xss_clean($this->input->post('senha'));
                 $acao = $this->security->xss_clean($this->input->post('acao'));
 
-
-//                echo '<pre>';
-//                print_r($perfil);
-//                die('perfil');
-
-
                 if (isset($acao) && $acao === 'logar') {
                     if ((isset($idt) && !empty($idt)) && (isset($senha) && !empty($senha))) {
-
 
                         $senha = sha1($senha);
                         //verifica se existe o usuario
                         $existeUsuario = $this->m_usuario->existeUsuario($idt)->row();
-//                        print_r($existeUsuario);
-//                        die();
+
                         if (isset($existeUsuario) && !empty($existeUsuario)) {
                             //verifica se existe o usuario, autenticando no ms-sca
                             $existeUsuarioSca = $this->m_login->existeUsuarioSca($idt, $senha);
@@ -76,19 +66,19 @@
                                     $dados['titulo'] = "NetCar - Home";
                                     $this->showTemplate('v_inicio', $dados);
                                 } else {
-                                    $info['mensagem'] = "Usuário sem autorização de acesso";
+                                    $info['mensagem'] = "uSUÁRIO SEM AUTORIZAÇÃO DE ACESSO";
                                     $this->index($info);
                                 }
                             } else {
-                                $info['mensagem'] = "Usuário e/ou senha inválido";
+                                $info['mensagem'] = "uSUÁRIO E/OU SENHA INVÁLIDO";
                                 $this->index($info);
                             }
                         } else {
-                            $info['mensagem'] = "Usuário inexistente";
+                            $info['mensagem'] = "uSUÁRIO INEXISTENTE";
                             $this->index($info);
                         }
                     } else {
-                        $info['mensagem'] = "Usuário e/ou senha inválido";
+                        $info['mensagem'] = "uSUÁRIO E/OU SENHA INVÁLIDO";
                         $this->index($info);
                     }
                 }
