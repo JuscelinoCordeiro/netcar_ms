@@ -66,19 +66,19 @@
                                     $dados['titulo'] = "NetCar - Home";
                                     $this->showTemplate('v_inicio', $dados);
                                 } else {
-                                    $info['mensagem'] = "uSUÁRIO SEM AUTORIZAÇÃO DE ACESSO";
+                                    $info['mensagem'] = "USUÁRIO SEM AUTORIZAÇÃO DE ACESSO";
                                     $this->index($info);
                                 }
                             } else {
-                                $info['mensagem'] = "uSUÁRIO E/OU SENHA INVÁLIDO";
+                                $info['mensagem'] = "USUÁRIO E/OU SENHA INVÁLIDO";
                                 $this->index($info);
                             }
                         } else {
-                            $info['mensagem'] = "uSUÁRIO INEXISTENTE";
+                            $info['mensagem'] = "USUÁRIO INEXISTENTE";
                             $this->index($info);
                         }
                     } else {
-                        $info['mensagem'] = "uSUÁRIO E/OU SENHA INVÁLIDO";
+                        $info['mensagem'] = "USUÁRIO E/OU SENHA INVÁLIDO";
                         $this->index($info);
                     }
                 }

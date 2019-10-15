@@ -147,9 +147,8 @@
 //
                 //pega o objeto agendamento finalizado
                 $agendamento = $this->getAgendamento($cd_agend)->row();
-                print_r($agendamento);
-                die();
-
+//                print_r($agendamento);
+//                die();
                 //insere os dados do agendamento finalizado na tabela faturamento
                 $faturou = $this->m_faturamento->setFaturamento($agendamento);
 

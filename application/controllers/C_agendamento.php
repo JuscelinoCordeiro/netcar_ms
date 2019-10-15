@@ -47,9 +47,6 @@
                     }
                 }
             }
-//            echo '<pre>';
-//            print_r($agendamentos);
-//            die();
 
             $dados['agendamentos_dia'] = $agendamentos;
             $dados['titulo'] = "Agenda do dia";
