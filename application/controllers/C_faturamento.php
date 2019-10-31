@@ -101,9 +101,10 @@
         }
 
         public function imprimirFaturamento() {
-            $hora_relatorio = date("d-m-Y_H:i:s");
+            $hora_relatorio = date("d/m/Y H:i:s");
             $titulo = strtoupper($this->security->xss_clean($this->input->post('titulo')));
-            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
+//            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
+            $dados = '<div align="center"><img align="center" height="90px" src="http://172.23.0.1/netcar/assets/img/carwash.jpg"/></div>';
             $dados .= '<h3 align="center">NetCAR - Serviços de Limpeza Automotiva</h3><br>';
             $dados .= '<h3>' . $titulo . '</h3>';
             $dados .= '<table border="1" cellspacing="0"cellpadding="2" class="table table-bordered table-condensed"  style="text-align: center">';
@@ -111,7 +112,6 @@
             $dados .= '</table>';
 
             $usuario = $this->session->userdata('dados_usuario');
-//            $rodape = "Impresso por: " . utf8_encode($usuario->nome) . "  - Identidade: $usuario->idt | {DATE d/m/y H:i}|{PAGENO}/{nb}";
             $rodape = "Impresso por: " . utf8_encode($usuario->nome) . "  - Identidade: $usuario->idt em " . $hora_relatorio;
             $dados .= '<br><br>' . $rodape;
 

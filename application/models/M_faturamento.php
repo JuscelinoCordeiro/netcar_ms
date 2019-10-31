@@ -69,7 +69,8 @@
             }
 
             $url = M_url_ms::pdf . "/index.php";
-            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
+//            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
+            $dados = '<div align="center"><img align="center" height="90px" src="http://172.23.0.1/netcar/assets/img/carwash.jpg"/></div>';
             $dados .= '<h3 align="center">NetCAR - Serviços de Limpeza Automotiva</h3><br>';
             $dados .= '<h3>Comprovante de Execução de Serviço</h3>';
             $dados .= '<table border="1"  cellspacing="0"cellpadding="2" class="table table-bordered table-condensed" style="text-align: center">';
