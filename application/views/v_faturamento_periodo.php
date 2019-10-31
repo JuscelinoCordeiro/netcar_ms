@@ -3,8 +3,8 @@
         if ($faturamento) {
             ?>
             <div class="col-md-2"></div>
-            <div class="col-md-8"><h3 class="titulo text text-center">Faturamento para o período de <?= inverteData($dt_inicio) . " a " . inverteData($dt_fim) ?></h3></div>
-            <table class="tabela table table-bordered table-condensed table-hover">
+            <div class="col-md-8"><h3 class="titulo_tbl text text-center">Faturamento para o período de <?= inverteData($dt_inicio) . " a " . inverteData($dt_fim) ?></h3></div>
+            <table id="tbl-faturamento" class="tabela table table-bordered table-condensed table-hover">
                 <thead>
                     <tr class="text text-center text-uppercase">
                         <th>ORD</th>
@@ -48,3 +48,74 @@
             <div class="col-md-3"></div>
         <?php } ?>
 </div>
+
+
+<script>
+    //========================================
+    // imprimir comprovante
+    $("a[id^=btnRel]").click(function(e) {
+        cd_fatura = $(this).attr('cd_fatura');
+        $.ajax({
+            type: 'POST',
+            url: '/netcar/c_faturamento/gerarComprovante',
+            cache: false,
+            data: {
+                cd_fatura: cd_fatura
+            },
+            beforeSend: function(xhr) {
+                xhr.overrideMimeType("text/plain; charset=UTF-8");
+            },
+            complete: function() {
+            },
+            success: function(data) {
+                $("#visualizarTexto").html(data);
+                $("#visualizar").modal('show');
+                $('#visualizar').on('hidden.bs.modal', function(e) {
+                    window.location.reload();
+                });
+            },
+            error: function() {
+                $("#erroTexto").html("erro");
+                $("#erro").modal('show');
+            }
+        });
+        e.preventDefault();
+    });
+
+    //=======================================
+    // imprimir faturamento
+    $("a[id^=btnTotal]").click(function(e) {
+        $('.btn-acao').remove();
+        conteudo = $('#tbl-faturamento').html();
+        titulo = $('.titulo_tbl').text();
+//        console.log(titulo);
+//        exit();
+        $.ajax({
+            type: 'POST',
+            url: '/netcar/c_faturamento/imprimirFaturamento',
+            cache: false,
+            data: {
+                conteudo: conteudo,
+                titulo: titulo
+            },
+            beforeSend: function(xhr) {
+                xhr.overrideMimeType("text/plain; charset=UTF-8");
+            },
+            complete: function() {
+            },
+            success: function(data) {
+                $("#visualizarTexto").html(data);
+                $("#visualizar").modal('show');
+                $('#visualizar').on('hidden.bs.modal', function(e) {
+                    window.location.reload();
+                });
+            },
+            error: function() {
+                $("#erroTexto").html("erro");
+                $("#erro").modal('show');
+            }
+        });
+        e.preventDefault();
+    });
+
+</script>
