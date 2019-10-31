@@ -66,8 +66,8 @@
                     echo 0;
                 }
             } else {
-                $url = M_url_ms::tipo_veiculo . "/add";
-                if (!file_exists($url)) {
+                $status_ms = '';
+                if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
                     $status_ms = M_http_code::not_found;
                 }
 

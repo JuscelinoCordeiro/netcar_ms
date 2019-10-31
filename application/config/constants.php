@@ -85,10 +85,10 @@
     defined('EXIT__AUTO_MIN') OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
     defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 //constantes de perfil
-    define('usuario', 0);
-    define('operador', 1);
-    define('financeiro', 2);
-    define('gerente', 3);
+    define('USUARIO', 0);
+    define('OPERADOR', 1);
+    define('FINANCEIRO', 2);
+    define('GERENTE', 3);
 
 //identificaçao do sistema
-    define('id_sistema_sca', 1);
+    define('ID_SISTEMA_SCA', 1);

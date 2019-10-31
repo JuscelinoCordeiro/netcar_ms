@@ -14,10 +14,6 @@
                     . " where f.data = ?"
                     . " order by f.data asc , f.horario asc";
 
-
-
-
-//            print_r($faturamento);
             $total = "select sum(valor) as total from faturamento where data = ?";
 
             //pega um arraylist de objetos de faturamentos
@@ -47,9 +43,16 @@
         }
 
         public function setFaturamento($agendamento) {
-            $sql = $sql = "insert into faturamento (cd_tpveiculo, cd_servico, data, horario, valor)"
+            $this->load->model('m_tarifa');
+
+            $agendamento->preco = $this->m_tarifa->getValor($agendamento->cd_servico, $agendamento->cd_tpveiculo)->preco;
+
+            $sql = "insert into faturamento (cd_tpveiculo, cd_servico, data, horario, valor)"
                     . " values (?, ?, ?, ?,? )";
 
+
+//            print_r($agendamento);
+//            die();
             return $this->db->query($sql, array((int) $agendamento->cd_tpveiculo, (int) $agendamento->cd_servico, $agendamento->data, $agendamento->horario, floatval($agendamento->preco)));
         }
 
@@ -108,8 +111,6 @@
             );
 
             $result = curl_exec($ch);
-//            print_r($result);
-//            die();
             return $result;
         }
 

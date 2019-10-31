@@ -49,7 +49,7 @@
             <div class="col-md-2"></div>
         <?php } else { ?>
             <div class="col-md-3"></div>
-            <div  id=""class="col-md-6" ><h3>Até o momento não existe faturamento, <?= date('d/m/y') ?>.</h3></div>
+            <div  id=""class="col-md-6"><h3 class="text text-center">Até o momento não existe faturamento, <?= date('d/m/y') ?>.</h3></div>
             <div class="col-md-3"></div>
         <?php } ?>
 </div>

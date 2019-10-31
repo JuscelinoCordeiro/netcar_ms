@@ -41,6 +41,14 @@
             return $this->db->query($sql, array($tarifa->servico, $tarifa->tipo_veiculo));
         }
 
+        public function getValor($servico, $cd_tpveiculo) {
+            $sql = "SELECT preco
+                FROM tarifa
+                where cd_servico = ? and cd_tpveiculo = ?";
+
+            return $this->db->query($sql, array($servico, $cd_tpveiculo))->row();
+        }
+
         public function editarTarifa($tarifa) {
             $sql = "UPDATE tarifa SET preco = ?
                 where cd_servico = ? and cd_tpveiculo = ?";

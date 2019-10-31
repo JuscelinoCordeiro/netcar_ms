@@ -71,6 +71,8 @@
 
         public function excluirVeiculo($id) {
 
+            $this->db->trans_begin();
+
             try {
                 $json = '';
                 $url = M_url_ms::tipo_veiculo . "/delete/$id";
@@ -84,25 +86,25 @@
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $result_del = curl_exec($ch);
-                $result_del = json_decode($result_del);
+                //$result_del = json_decode($result_del);
                 curl_close($ch);
 
-                if ($result_del !== TRUE) {
-                    throw new Exception("Erro ao excluir na tabela tipo_veiculo.");
-                }
+                if ($result_del) {
+                    $sql_tarifa = "delete from tarifa where cd_tpveiculo = ?";
 
-                $sql_tarifa = "delete from tarifa where cd_tpveiculo = ?";
+                    $result_tarifa = $this->db->query($sql_tarifa, $id);
 
-                $result_tarifa = $this->db->query($sql_tarifa, $id);
-
-                if ($result_tarifa === FALSE) {
-                    throw new Exception("Erro ao excluir na tabela tarifa.");
+                    if ($result_tarifa === FALSE) {
+                        throw new Exception("Erro ao excluir na tabela tarifa.");
+                    }
                 }
 
                 //verifica se houve erros
-                if ($result_del === TRUE && $result_tarifa == TRUE) {
+                if ($result_del && $result_tarifa == TRUE) {
+                    $this->db->trans_commit();
                     return 1;
                 } else {
+                    $this->db->trans_rollback();
                     return 0;
                 }
             } catch (Exception $ex) {

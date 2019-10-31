@@ -41,6 +41,7 @@
 
             $this->load->model('m_tarifa');
 
+
             try {
                 //atualiza o nome do serviço
                 $sql = "update servico set servico = ? where cd_servico = ?";
@@ -50,6 +51,7 @@
                     throw new Exception("Erro ao editar na tabela serviço.");
                 }
 
+                $this->db->trans_begin();
                 //VERIFICA CONDIÇAO DO MICROSSERVIÇO DE TIPO_VEICULOS
                 if (checarStatusMs(M_url_ms::tipo_veiculo)) {
                     //pega as tarifas existentes por servico/tipo_veiculo
@@ -63,7 +65,6 @@
                     $result_up_tarifa = TRUE;
                     foreach ($tipo_veiculos as $tpveiculo) {
                         if (!in_array($tpveiculo, $tarifados)) {
-//                        $result_up_tarifa = $this->db->query($insert_tarifa, array((int) $tpveiculo, $cd_servico));
                             $result_up_tarifa = $this->m_tarifa->cadastrarTarifa($tpveiculo, $cd_servico);
                             if ($result_up_tarifa === FALSE) {
                                 throw new Exception("Erro ao cadastrar na tabela tarifa.");
@@ -75,7 +76,6 @@
                     $result_del_tarifa = TRUE;
                     foreach ($tarifados as $tarifado) {
                         if (!in_array($tarifado, $tipo_veiculos)) {
-//                        $result_del_tarifa = $this->db->query($del_tarifa, array($tarifado, $cd_servico));
                             $result_del_tarifa = $this->m_tarifa->excluirTarifaTpVeiculo($tarifado, $cd_servico);
 
                             if ($result_del_tarifa === FALSE) {
@@ -86,8 +86,10 @@
 
                     //verifica se houve erros
                     if ($result_up_tarifa === TRUE && $result_del_tarifa == TRUE) {
+                        $this->db->trans_commit();
                         return 1;
                     } else {
+                        $this->db->trans_rollback();
                         return 0;
                     }
                 } else {
@@ -105,6 +107,8 @@
 
         public function cadastrarServico($servico, $tipo_veiculos) {
             $this->load->model('m_tarifa');
+
+
             try {
 
                 $sql_ultimoSv = "select MAX(cd_servico) ultimo_cod from servico";
@@ -123,6 +127,7 @@
                     throw new Exception("Erro ao cadastrar na tabela serviço.");
                 }
 
+                $this->db->trans_begin();
                 if (checarStatusMs(M_url_ms::tipo_veiculo)) {
                     $insert2 = TRUE;
                     if (!empty($tipo_veiculos)) {
@@ -138,7 +143,9 @@
 
                     if ($insert1 === TRUE && $insert2 == TRUE) {
                         return 1;
+                        $this->db->trans_commit();
                     } else {
+                        $this->db->trans_rollback();
                         return 0;
                     }
                 } else {

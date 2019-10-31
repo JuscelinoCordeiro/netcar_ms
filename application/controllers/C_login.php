@@ -54,17 +54,21 @@
                                 if ($valida) {
 
                                     //pega o objeto com os dados do usuário
-                                    $usuario = $this->m_login->getUsuario($idt, $senha);
+                                    $usuario = $this->m_login->getUsuario($idt);
 
                                     //pega o perfil do usuario no SCA
                                     $perfil = $this->m_login->getPerfilUsuarioSca($idt);
-                                    if (!isset($usuario->nivel) || empty($usuario->nivel)) {
-                                        $usuario->nivel = $perfil->ID;
+
+                                    if (isset($perfil->ID) || !empty($perfil->ID)) {
+                                        @$usuario->nivel = $perfil->ID;
+                                        $this->session->set_userdata('dados_usuario', $usuario);
+                                        $this->session->set_userdata('logado', TRUE);
+                                        $dados['titulo'] = "NetCar - Home";
+                                        $this->showTemplate('v_inicio', $dados);
+                                    } else {
+                                        $info['mensagem'] = "ERRO!! USUÁRIO SEM PERFIL NO SISTEMA";
+                                        $this->index($info);
                                     }
-                                    $this->session->set_userdata('dados_usuario', $usuario);
-                                    $this->session->set_userdata('logado', TRUE);
-                                    $dados['titulo'] = "NetCar - Home";
-                                    $this->showTemplate('v_inicio', $dados);
                                 } else {
                                     $info['mensagem'] = "USUÁRIO SEM AUTORIZAÇÃO DE ACESSO";
                                     $this->index($info);
