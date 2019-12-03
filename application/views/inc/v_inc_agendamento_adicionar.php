@@ -12,8 +12,13 @@
                 <select class="form-control text text-uppercase" name="usuario" >
                     <option value="" selected="">Selecione o usuario</option>
                     <?php
-                        foreach ($usuarios as $usuario) {
-                            echo '<option class="text text-uppercase" value="' . $usuario->cd_usuario . '">' . $usuario->nome . '</option>';
+                        $user = $this->session->userdata('dados_usuario');
+                        if ($user->nivel == M_perfil::Cliente) {
+                            echo '<option class="text text-uppercase" value="' . $user->cd_usuario . '">' . $user->nome . '</option>';
+                        } else {
+                            foreach ($usuarios as $usuario) {
+                                echo '<option class="text text-uppercase" value="' . $usuario->cd_usuario . '">' . $usuario->nome . '</option>';
+                            }
                         }
                     ?>
                 </select>
