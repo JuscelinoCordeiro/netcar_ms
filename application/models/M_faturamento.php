@@ -64,11 +64,11 @@
 
         public function gerarComprovante($faturamento) {
             //verifica se o microserviço esta ativo
-            if (!checarStatusMs(M_url_ms::pdf)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::PDF)) {
+                return M_http_code::NOT_FOUND;
             }
 
-            $url = M_url_ms::pdf . "/index.php";
+            $url = M_url_ms::PDF . "/index.php";
 //            $dados = '<div align="center"><img align="center" height="90px" src="' . base_url('assets/img/carwash.jpg') . '"/></div>';
             $dados = '<div align="center"><img align="center" height="90px" src="http://172.23.0.1/netcar/assets/img/carwash.jpg"/></div>';
             $dados .= '<h3 align="center">NetCAR - Serviços de Limpeza Automotiva</h3><br>';
@@ -117,11 +117,11 @@
 
         public function imprimirFaturamento($dados) {
             //verifica se o microserviço esta ativo
-            if (!checarStatusMs(M_url_ms::pdf)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::PDF)) {
+                return M_http_code::NOT_FOUND;
             }
 
-            $url = M_url_ms::pdf . "/index.php";
+            $url = M_url_ms::PDF . "/index.php";
 
             $dados = json_encode(array('conteudo' => $dados));
             $ch = curl_init($url);

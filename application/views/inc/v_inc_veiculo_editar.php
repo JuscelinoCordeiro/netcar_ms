@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <h2 class="titulo">Editar Serviço</h2>
 
-        <?php if ($veiculo == M_http_code::not_found) {
+        <?php if ($veiculo == M_http_code::NOT_FOUND) {
                 ?>
                 <tr>
                     <td class="text text-center" colspan="3"><h4 class="text text-danger text-center"><b>Serviço Indisponível</b></h4></td>

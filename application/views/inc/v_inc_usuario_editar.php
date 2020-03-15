@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <h2 class="titulo"><?= $titulo ?></h2>
         <?php
-            if ($status_ms == M_http_code::not_found) {
+            if ($status_ms == M_http_code::NOT_FOUND) {
                 echo '<br><h4 class="text text-center text-danger"><b>Serviço de Controle de Acesso Indisponível. <br>Tente mais tarde.</b></h4><br>';
             } else {
                 ?>

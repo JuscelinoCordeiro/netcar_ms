@@ -22,7 +22,7 @@
             $fatura = $faturamento['faturamento'];
             foreach ($fatura as &$f) {
                 $tipo_veiculo = $this->m_veiculo->getVeiculoById($f->cd_tpveiculo);
-                $f->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+                $f->tipo = ($tipo_veiculo != M_http_code::NOT_FOUND) ? $tipo_veiculo->tipo : 'Sem Informação';
             }
 
 
@@ -47,7 +47,7 @@
                 $fatura = $faturamento['faturamento'];
                 foreach ($fatura as &$f) {
                     $tipo_veiculo = $this->m_veiculo->getVeiculoById($f->cd_tpveiculo);
-                    $f->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+                    $f->tipo = ($tipo_veiculo != M_http_code::NOT_FOUND) ? $tipo_veiculo->tipo : 'Sem Informação';
                 }
 
 
@@ -77,7 +77,7 @@
             $faturamento->setServico($servico);
 
             $tipo_veiculo = $this->m_veiculo->getVeiculoById($fatura->cd_tpveiculo);
-            $faturamento->setTipoVeiculo(($tipo_veiculo !== M_http_code::not_found) ? $tipo_veiculo->tipo : "Não discriminado.");
+            $faturamento->setTipoVeiculo(($tipo_veiculo !== M_http_code::NOT_FOUND) ? $tipo_veiculo->tipo : "Não discriminado.");
             $faturamento->setValor('R$ ' . $fatura->valor . ',00');
 
 
@@ -86,7 +86,7 @@
 //            $retorno = '404';
 //            $retorno->status = 0;
 //            $retorno->dados = '';
-            if ($retorno == M_http_code::not_found) {
+            if ($retorno == M_http_code::NOT_FOUND) {
                 $msg['msg'] = 'Serviço Indisponível. Tente mais tarde.';
                 $this->load->view('errors/v_erro', $msg);
             } else {
@@ -120,12 +120,12 @@
 //            $retorno = '404';
 //            $retorno->status = 0;
 //            $retorno->dados = '';
-            if ($retorno == M_http_code::not_found) {
+            if ($retorno == M_http_code::NOT_FOUND) {
                 $msg['msg'] = 'Serviço Indisponível. Tente mais tarde.';
                 $this->load->view('errors/v_erro', $msg);
             } else {
                 if (($retorno->status == '1') && $retorno->dados != 'erro') {
-                    $arquivo['arquivo'] = M_url_ms::pdf . '/' . $retorno->dados;
+                    $arquivo['arquivo'] = M_url_ms::PDF . '/' . $retorno->dados;
                     $this->load->view('v_relatorio_pdf', $arquivo);
                 } else {
                     $msg['msg'] = 'ERRO! Não foi possivel gerar o arquivo.';

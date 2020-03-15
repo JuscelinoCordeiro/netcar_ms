@@ -16,7 +16,7 @@
             $i = 1;
 
             foreach ($tarifas->result() as $tarifa) {
-                if ($veiculos != M_http_code::not_found) {
+                if ($veiculos != M_http_code::NOT_FOUND) {
                     foreach ($veiculos as $veiculo) {
                         if ($tarifa->cd_tpveiculo == $veiculo->id) {
                             ?>
@@ -45,7 +45,7 @@
                             <?= $tarifa->preco ? "R$ " . $tarifa->preco . ",00" : "<span class=\"label label-info\">Configurar preço</span>" ?></td>
                         <td class="text text-center text-uppercase">
                             <?php
-                            if ($veiculos != M_http_code::not_found) {
+                            if ($veiculos != M_http_code::NOT_FOUND) {
                                 ?>
                                 <a href="#" id="btnEdit<?= $tarifa->cd_servico ?>" cd_tpservico="<?= $tarifa->cd_servico ?>" cd_tpveiculo="<?= $tarifa->cd_tpveiculo ?>">
                                     <img src="<?= base_url('assets/img/b_edit.png') ?>" alt="editar" title="Editar" border="0">

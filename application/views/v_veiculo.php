@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <?php
-                if ($veiculos == M_http_code::not_found) {
+                if ($veiculos == M_http_code::NOT_FOUND) {
                     ?>
                     <tr>
                         <td class="text text-center" colspan="3"><h4 class="text text-danger"><b>Serviço Indisponível</b></h4></td>

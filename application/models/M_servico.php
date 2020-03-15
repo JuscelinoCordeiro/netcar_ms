@@ -53,7 +53,7 @@
 
                 $this->db->trans_begin();
                 //VERIFICA CONDIÇAO DO MICROSSERVIÇO DE TIPO_VEICULOS
-                if (checarStatusMs(M_url_ms::tipo_veiculo)) {
+                if (checarStatusMs(M_url_ms::TIPO_VEICULO)) {
                     //pega as tarifas existentes por servico/tipo_veiculo
                     $tarifas = $this->m_tarifa->getTarifaServico($cd_servico)->result();
                     $tarifados = array();
@@ -128,7 +128,7 @@
                 }
 
                 $this->db->trans_begin();
-                if (checarStatusMs(M_url_ms::tipo_veiculo)) {
+                if (checarStatusMs(M_url_ms::TIPO_VEICULO)) {
                     $insert2 = TRUE;
                     if (!empty($tipo_veiculos)) {
                         foreach ($tipo_veiculos as $tpv) {

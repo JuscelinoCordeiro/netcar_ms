@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label class="control-label">Tipo de veículo</label>
                 <?php
-                    if ($tipo_veiculo == M_http_code::not_found) {
+                    if ($tipo_veiculo == M_http_code::NOT_FOUND) {
                         $tipo_veiculo = "Serviço Indisponível";
                     } else {
                         $tipo_veiculo = $tipo_veiculo->tipo;

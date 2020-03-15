@@ -82,8 +82,8 @@
                 }
             } else {
                 //verifica se o sca esta ativo
-                if (!checarStatusMs(M_url_ms::sca)) {
-                    $status_ms = M_http_code::not_found;
+                if (!checarStatusMs(M_url_ms::SCA)) {
+                    $status_ms = M_http_code::NOT_FOUND;
                 }
                 $dados['status_ms'] = isset($status_ms) ? $status_ms : "";
                 $dados['titulo'] = "teste ajax";
@@ -114,8 +114,8 @@
             } else {
                 $cd_usuario = (int) $this->input->post('cd_usuario');
                 //verifica se o sca esta ativo
-                if (!checarStatusMs(M_url_ms::sca)) {
-                    $status_ms = M_http_code::not_found;
+                if (!checarStatusMs(M_url_ms::SCA)) {
+                    $status_ms = M_http_code::NOT_FOUND;
                 }
                 $dados['status_ms'] = isset($status_ms) ? $status_ms : "";
 
@@ -134,8 +134,8 @@
 
         public function excluirUsuario() {
             //verifica se o sca esta ativo
-            if (!checarStatusMs(M_url_ms::sca)) {
-                $status_ms = M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                $status_ms = M_http_code::NOT_FOUND;
                 echo $status_ms;
             } else {
                 $cd_usuario = $this->security->xss_clean($this->input->post('cd_usuario'));
@@ -169,8 +169,8 @@
                 }
             } else {
                 // verifica se o sca esta ativo
-                if (!checarStatusMs(M_url_ms::sca)) {
-                    $status_ms = M_http_code::not_found;
+                if (!checarStatusMs(M_url_ms::SCA)) {
+                    $status_ms = M_http_code::NOT_FOUND;
                 }
 
                 $dados['status_ms'] = isset($status_ms) ? $status_ms : "";

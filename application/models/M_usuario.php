@@ -19,8 +19,8 @@
         }
 
         public function cadastrarUsuario($usuario) {
-            if (!checarStatusMs(M_url_ms::sca)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                return M_http_code::NOT_FOUND;
             }
 
             $this->db->trans_begin();
@@ -33,7 +33,7 @@
 
             if ($result1) {
                 //CADASTRO NO MS-SCA
-                $url = M_url_ms::sca . "/Usuarios/cadastrarUsuario";
+                $url = M_url_ms::SCA . "/Usuarios/cadastrarUsuario";
                 $dados = json_encode(array(
                     'nome' => $usuario->nome,
                     'identidade' => $usuario->identidade,
@@ -69,8 +69,8 @@
 
         public function excluirUsuario($cd_usuario) {
 
-            if (!checarStatusMs(M_url_ms::sca)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                return M_http_code::NOT_FOUND;
             }
 
             $this->db->trans_begin();
@@ -82,7 +82,7 @@
             $usuario = $this->getContaUsuario($cd_usuario);
 
             if ($result1) {
-                $url = M_url_ms::sca . "/Usuarios/desativarUsuario";
+                $url = M_url_ms::SCA . "/Usuarios/desativarUsuario";
                 $dados = json_encode(array(
                     'identidade' => $usuario['idt'],
                     'sistema_id' => ID_SISTEMA_SCA));
@@ -110,7 +110,7 @@
 
         public function editarUsuario($usuario) {
             if ($usuario->nivel !== NULL) {
-                if (!checarStatusMs(M_url_ms::sca)) {
+                if (!checarStatusMs(M_url_ms::SCA)) {
 //                    return M_http_code::not_found;
                     return FALSE;
                 }
@@ -121,7 +121,7 @@
                     $usuario->nivel, $usuario->identidade, $usuario->cd_usuario));
 
                 if ($result1) {
-                    $url = M_url_ms::sca . "/Usuarios/editarPerfil";
+                    $url = M_url_ms::SCA . "/Usuarios/editarPerfil";
                     $dados = json_encode(array(
                         'identidade' => $usuario->identidade,
                         'perfil' => $usuario->nivel,
@@ -170,11 +170,11 @@
         }
 
         public function trocarSenha($cd_usuario, $senha_antiga, $senha_nova, $identidade) {
-            if (!checarStatusMs(M_url_ms::sca)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                return M_http_code::NOT_FOUND;
             }
 
-            $url = M_url_ms::sca . "/Usuarios/trocarSenha";
+            $url = M_url_ms::SCA . "/Usuarios/trocarSenha";
             $dados = json_encode(array(
                 'identidade' => $identidade,
                 'senha_antiga' => $senha_antiga,

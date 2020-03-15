@@ -67,8 +67,8 @@
                 }
             } else {
                 $status_ms = '';
-                if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
-                    $status_ms = M_http_code::not_found;
+                if (!checarStatusMs(M_url_ms::TIPO_VEICULO)) {
+                    $status_ms = M_http_code::NOT_FOUND;
                 }
 
                 $dados['titulo'] = "Cadastro de Veículo";

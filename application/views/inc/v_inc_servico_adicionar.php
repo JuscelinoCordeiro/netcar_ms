@@ -14,7 +14,7 @@
                 <label class="control-label">Tipos de veículos</label>
             </div>
             <?php
-                if ($tipo_veiculos == M_http_code::not_found) {
+                if ($tipo_veiculos == M_http_code::NOT_FOUND) {
                     echo '<h4 class="text text-danger text-center"><b>Serviço Indisponível</b></h4>';
                 } else {
                     foreach ($tipo_veiculos as $tpVeiculo) {

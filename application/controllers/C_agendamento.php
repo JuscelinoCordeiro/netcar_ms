@@ -33,7 +33,7 @@
             foreach ($agendamentos as &$ag) {
                 $tipo_veiculo = $this->m_veiculo->getVeiculoById($ag->cd_tpveiculo);
                 if (!isset($ag->tipo)) {
-                    @$ag->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+                    @$ag->tipo = ($tipo_veiculo != M_http_code::NOT_FOUND) ? $tipo_veiculo->tipo : 'Sem Informação';
                 }
                 if (!isset($ag->preco) || empty($ag->preco)) {
                     if (isset($ag->cd_tpveiculo)) {
@@ -72,7 +72,7 @@
                 foreach ($agendamentos as &$ag) {
                     $tipo_veiculo = $this->m_veiculo->getVeiculoById($ag->cd_tpveiculo);
                     if (!isset($ag->tipo)) {
-                        @$ag->tipo = ($tipo_veiculo != M_http_code::not_found) ? $tipo_veiculo->tipo : 'Sem Informação';
+                        @$ag->tipo = ($tipo_veiculo != M_http_code::NOT_FOUND) ? $tipo_veiculo->tipo : 'Sem Informação';
                     }
                     if (!isset($ag->preco) || empty($ag->preco)) {
                         if (isset($ag->cd_tpveiculo)) {

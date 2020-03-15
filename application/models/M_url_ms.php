@@ -10,8 +10,8 @@
         }
 
         //constantes de url microsserviços
-        const tipo_veiculo = 'http://192.168.50.104:5000';
-        const sca = 'http://127.0.0.1:8001';
-        const pdf = 'http://127.0.0.1:8003';
+        const TIPO_VEICULO = 'http://10.7.75.9:8080';
+        const SCA = 'http://127.0.0.1:8001';
+        const PDF = 'http://127.0.0.1:8003';
 
     }

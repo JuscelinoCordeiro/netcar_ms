@@ -10,12 +10,12 @@
         }
 
         //constantes de erros http
-        const sucess = '200';
-        const moved_permanently = '301';
-        const bad_request = '400';
-        const unauthorized = '401';
-        const forbidden = '403';
-        const not_found = '404';
-        const internal_server_error = '500';
+        const SUCESS = '200';
+        const MOVED_PERMANENTLY = '301';
+        const BAD_REQUEST = '400';
+        const UNAUTHORIZED = '401';
+        const FORBIDDEN = '403';
+        const NOT_FOUND = '404';
+        const INTERNAL_SERVER_ERROR = '500';
 
     }

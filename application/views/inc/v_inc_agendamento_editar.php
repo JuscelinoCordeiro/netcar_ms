@@ -26,7 +26,7 @@
                 <select class="form-control text text-uppercase" name="tipo_veiculo" id="tipo_veiculo"  required >
                     <option value="" selected="">Selecione o tipo de veículo</option>
                     <?php
-                        if ($tipo_veiculos == M_http_code::not_found) {
+                        if ($tipo_veiculos == M_http_code::NOT_FOUND) {
                             echo '<option ' . $selecionado . ' value="-1"><span class="text text-danger"><b>Serviço Indisponível</b></span></option>';
                         } else {
                             foreach ($tipo_veiculos as $tpveiculos) {

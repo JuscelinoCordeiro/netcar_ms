@@ -13,7 +13,7 @@
 
         public function index($info = null) {
 
-            if (!checarStatusMs(M_url_ms::sca)) {
+            if (!checarStatusMs(M_url_ms::SCA)) {
                 $info['mensagem'] = 'SERVIÇO DE AUTENTICAÇÃO INDISPONÍVEL';
             }
 
@@ -24,7 +24,7 @@
         }
 
         public function logar() {
-            if (!checarStatusMs(M_url_ms::sca)) {
+            if (!checarStatusMs(M_url_ms::SCA)) {
                 redirect('c_inicio/index');
             }
 

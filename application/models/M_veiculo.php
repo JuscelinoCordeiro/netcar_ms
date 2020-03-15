@@ -10,26 +10,26 @@
         }
 
         public function getVeiculos() {
-            $url = M_url_ms::tipo_veiculo . "/tipo_veiculos";
+            $url = M_url_ms::TIPO_VEICULO . "/tipo_veiculos";
 
-            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::TIPO_VEICULO)) {
+                return M_http_code::NOT_FOUND;
             }
             return json_decode(file_get_contents($url));
         }
 
         public function getVeiculoById($id) {
-            $url = M_url_ms::tipo_veiculo . "/tipo_veiculos/$id";
-            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
-                return M_http_code::not_found;
+            $url = M_url_ms::TIPO_VEICULO . "/tipo_veiculos/$id";
+            if (!checarStatusMs(M_url_ms::TIPO_VEICULO)) {
+                return M_http_code::NOT_FOUND;
             }
             return json_decode(file_get_contents($url));
         }
 
         public function editarVeiculo($veiculo) {
-            $url = M_url_ms::tipo_veiculo . "/update";
-            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
-                return M_http_code::not_found;
+            $url = M_url_ms::TIPO_VEICULO . "/update";
+            if (!checarStatusMs(M_url_ms::TIPO_VEICULO)) {
+                return M_http_code::NOT_FOUND;
             }
 
             $dados = json_encode(array('id' => $veiculo->id,
@@ -49,9 +49,9 @@
         }
 
         public function cadastrarVeiculo($tipo_veiculo) {
-            $url = M_url_ms::tipo_veiculo . "/add";
-            if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
-                return M_http_code::not_found;
+            $url = M_url_ms::TIPO_VEICULO . "/add";
+            if (!checarStatusMs(M_url_ms::TIPO_VEICULO)) {
+                return M_http_code::NOT_FOUND;
             }
 
             $dados = json_encode(array('tipo' => $tipo_veiculo));
@@ -75,9 +75,9 @@
 
             try {
                 $json = '';
-                $url = M_url_ms::tipo_veiculo . "/delete/$id";
-                if (!checarStatusMs(M_url_ms::tipo_veiculo)) {
-                    return M_http_code::not_found;
+                $url = M_url_ms::TIPO_VEICULO . "/delete/$id";
+                if (!checarStatusMs(M_url_ms::TIPO_VEICULO)) {
+                    return M_http_code::NOT_FOUND;
                 }
 
                 $ch = curl_init();

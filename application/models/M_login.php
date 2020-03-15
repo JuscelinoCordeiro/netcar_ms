@@ -11,13 +11,13 @@
 
         public function autenticar($idt, $senha) {
 
-            if (!checarStatusMs(M_url_ms::sca)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                return M_http_code::NOT_FOUND;
             }
 
             $sistema_id = ID_SISTEMA_SCA;
 
-            $url = M_url_ms::sca . "/Usuarios/autenticar";
+            $url = M_url_ms::SCA . "/Usuarios/autenticar";
 
             $dados = json_encode(
                     array('identidade' => $idt,
@@ -48,11 +48,11 @@
         }
 
         public function existeUsuarioSca($idt, $senha) {
-            if (!checarStatusMs(M_url_ms::sca)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                return M_http_code::NOT_FOUND;
             }
 
-            $url = M_url_ms::sca . "/Usuarios/existeUsuario";
+            $url = M_url_ms::SCA . "/Usuarios/existeUsuario";
 
             $dados = json_encode(array('identidade' => $idt,
                 'senha' => $senha));
@@ -80,12 +80,12 @@
         }
 
         public function getPerfilUsuarioSca($idt) {
-            if (!checarStatusMs(M_url_ms::sca)) {
-                return M_http_code::not_found;
+            if (!checarStatusMs(M_url_ms::SCA)) {
+                return M_http_code::NOT_FOUND;
             }
 
             $sistema_id = ID_SISTEMA_SCA;
-            $url = M_url_ms::sca . "/Usuarios/getPerfil";
+            $url = M_url_ms::SCA . "/Usuarios/getPerfil";
             $valida = json_decode(file_get_contents($url));
 
             $dados = json_encode(array('identidade' => $idt,
